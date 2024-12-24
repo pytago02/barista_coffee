@@ -1,0 +1,40 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<div class="main">
+    <div class="navbar" id="navbar">
+        <div class="container">
+
+            <a routerLink="" class="logo">
+                <img src="/assets/images/coffee-logo-png-white-7525.png" alt="">
+            </a>
+
+
+            <ul class="navL-links">
+                <li><a routerLink="home">home</a></li>
+                <li><a routerLink="menu">menu</a></li>
+                <li><a routerLink="about">about</a></li>
+                <li><a routerLink="products">products</a></li>
+                <li><a routerLink="review">review</a></li>
+                <li><a routerLink="contact">contact</a></li>
+                <li><a href="#blogs">blogs</a></li>
+                <li style="color:white;">|</li>
+
+                <li><a href=""><i class="fas fa-search" id="btn-search" style="color: white;"></i></a></li>
+                <li><a href=""><i class="fas fa-shopping-cart" id="btn-shopping-cart" style="color: white;"></i></a>
+                </li>
+                <li><a href=""><i class="fas fa-bars" id="btn-menu" style="color: white;"></i></a></li>
+            </ul>
+
+        </div>
+    </div>
+    <script>
+        window.onscroll = function() {
+            var navbar = document.getElementById("navbar");
+            if (window.pageYOffset > 0) {
+                navbar.style.backgroundColor = "#ffff";
+            } else {
+                navbar.style.backgroundColor = "transparent";
+            }
+        };
+    </script>
+</div>

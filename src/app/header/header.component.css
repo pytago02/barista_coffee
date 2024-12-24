@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-decoration: none;
+    font-family: Oswald, sans-serif;
+    box-sizing: border-box;
+    text-transform: capitalize;
+    list-style: none;
+}
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    background-color: transparent;
+    background-color: #171516;
+    background-color: rgba(23, 21, 22, 0.8);
+    color: #fff;
+    padding: 5px 20px;
+}
+
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    /* Đẩy logo và nav-links sang hai bên */
+    align-items: center;
+    /* Canh giữa các thành phần theo chiều dọc */
+}
+
+.navL-links {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;
+}
+
+.navbar ul li {
+    display: inline;
+    text-align: center;
+}
+
+.navbar ul li a {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--header-text-color);
+    transition: color 0.3s ease;
+    padding: 20px;
+}
+
+.navL-links li:hover a {
+    color: var(--header-text-color-hover);
+    background-color: var(--header-background-hover);
+    border-radius: 10px;
+}
+
+.navbar ul li:hover i {
+    background-color: var(--header-background-hover);
+}
