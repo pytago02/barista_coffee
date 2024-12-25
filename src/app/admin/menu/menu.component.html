@@ -1,0 +1,121 @@
+<div class="main">
+    <!-- <app-admin-navbar></app-admin-navbar> -->
+
+    <div class="container" [ngClass]="{'blur':editItemData}">
+        <h2>component menu</h2>
+        <div class="menu">
+            <h2>Menu Items</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Availability</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of menuItems">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.price | currency }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ (item.availability == 1) ? 'Available' : 'Out of Stock' }}</td>
+                        <td>
+                            <button class="btn-edit" (click)="editItem(item)">Edit</button>
+                            <button class="btn-delete" (click)="deleteItem(item.item_id)">delete</button>
+                        </td>
+                        <!-- <td><button (click)="editItem(item)">Edit</button></td> -->
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Form thêm mới item -->
+        <div class="add-item-form">
+            <h3>Add New Item</h3>
+            <form (ngSubmit)="addItem()">
+                <label>
+                    Name:
+                    <input type="text" [(ngModel)]="newItem.name" name="name" required />
+                </label>
+                <label>
+                    Category ID:
+                    <!-- <input type="number" [(ngModel)]="newItem.category_id" name="category_id" required /> -->
+                    <select [(ngModel)]="newItem.category_id" name="category_id">
+                        <option [value]="1">Đồ uống</option>
+                        <option [value]="2">Khai vị</option>
+                        <option [value]="3">Món chính</option>
+                    </select>
+                </label>
+                <label>
+                    Price:
+                    <input type="number" [(ngModel)]="newItem.price" name="price" required />
+                </label>
+                <label>
+                    Description:
+                    <input type="text" [(ngModel)]="newItem.description" name="description" />
+                </label>
+                <label>
+                    Availability:
+                    <select [(ngModel)]="newItem.availability" name="availability">
+                        <option [value]="1">Available</option>
+                        <option [value]="0">Out of Stock</option>
+                    </select>
+                </label>
+                <button>Add Item</button>
+            </form>
+        </div>
+        <!-- Form thêm mới item -->
+
+        <div class="overlay"></div>
+
+        <!-- form update item data -->
+        <div *ngIf="editItemData" class="edit-form">
+            <h3>Edit Item</h3>
+            <form (ngSubmit)="updateItem()">
+                <label for="name">Name</label>
+                <input id="name" [(ngModel)]="editItemData.name" name="name" required />
+
+                <label for="price">Price</label>
+                <input id="price" type="number" [(ngModel)]="editItemData.price" name="price" required />
+
+                <label for="description">Description</label>
+                <textarea id="description" [(ngModel)]="editItemData.description" name="description"></textarea>
+
+                <label for="availability">Availability</label>
+                <select id="availability" [(ngModel)]="editItemData.availability" name="availability">
+                    <option [value]="1">Available</option>
+                    <option [value]="0">Out of Stock</option>
+                </select>
+
+                <button type="submit">Save</button>
+                <button type="button" (click)="editItemData = null" class="btn-cancel-edit">Cancel</button>
+            </form>
+        </div>
+
+        <!-- form update item data -->
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const overlay = document.querySelector('.overlay');
+        const editForm = document.querySelector('.edit-form');
+        
+        function showEditForm() {
+            document.querySelector('.overlay').style.display = 'block';
+        }
+
+        function hideEditForm() {
+            document.querySelector('.overlay').style.display = 'none';
+        }
+    
+        document.querySelector('.btn-edit').addEventListener('click', showEditForm);
+        document.querySelector('.btn-cancel-edit').addEventListener('click', hideEditForm);
+    });
+    
+
+</script>

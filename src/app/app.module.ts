@@ -12,6 +12,10 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { HttpClient } from '@angular/common/http';
+import { AdminNavbarComponent } from './admin/admin-navbar/admin-navbar.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { MenuComponent } from './admin/menu/menu.component';
+import { AddItemComponent } from './admin/menu/add-item/add-item.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,10 @@ import { HttpClient } from '@angular/common/http';
     FooterComponent,
     LoginComponent,
     AdminComponent,
+    AdminNavbarComponent,
+    DashboardComponent,
+    MenuComponent,
+    AddItemComponent,
   ],
   imports: [
     BrowserModule,

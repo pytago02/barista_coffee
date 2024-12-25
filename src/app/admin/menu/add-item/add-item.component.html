@@ -1,0 +1,34 @@
+<div class="add-item-form">
+    <h3>Add New Item</h3>
+    <form (ngSubmit)="addItem()">
+        <label>
+            Name:
+            <input type="text" [(ngModel)]="newItem.name" name="name" required />
+        </label>
+        <label>
+            Category ID:
+            <!-- <input type="number" [(ngModel)]="newItem.category_id" name="category_id" required /> -->
+            <select [(ngModel)]="newItem.category_id" name="category_id">
+                <option [value]="1">Đồ uống</option>
+                <option [value]="2">Khai vị</option>
+                <option [value]="3">Món chính</option>
+            </select>
+        </label>
+        <label>
+            Price:
+            <input type="number" [(ngModel)]="newItem.price" name="price" required />
+        </label>
+        <label>
+            Description:
+            <input type="text" [(ngModel)]="newItem.description" name="description" />
+        </label>
+        <label>
+            Availability:
+            <select [(ngModel)]="newItem.availability" name="availability">
+                <option [value]="1">Available</option>
+                <option [value]="0">Out of Stock</option>
+            </select>
+        </label>
+        <button >Add Item</button>
+    </form>
+</div>

@@ -13,30 +13,48 @@
   --header-text-color: #ffffff;
   --header-text-color-hover: #ffffff;
   --header-background-hover: #30271C;
-  
+
   --menu-container-menu-background: #2F2D2B;
+
+  --backgrounf-color01: #2F2D2B;
+  --backgrounf-color02: #c7a17a;
+
+
   --menu-title-text-color: #fff;
   --menu-text-color: #fff;
 
   --color-text-02: #c7a17a;
   --color-text-03: #2f2d2b;
-  --font-merri : Merriweather, serif;
+  --color-text-04: #fff;
+
   --size-wrapper: 40%;
+
+  --width-admin-navbar: 250px;
+
+  --font-merri: Merriweather, serif;
+  --font-oswald: Oswald, sans-serif;
+  --font-roboto: Roboto, sans-serif;
+  --font-open-sans: Open Sans, sans-serif;
+}
+
+*{
+  text-transform: capitalize;
 }
 
 
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden ;
-    scroll-behavior: smooth;
-    background-image: url(/assets/images/bg-footer.jpg);
-  }
-  
-  app-root {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  /* background-image: url(/assets/images/bg-footer.jpg); */
+}
+
+app-root {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
