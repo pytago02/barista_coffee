@@ -1,13 +1,14 @@
 <div class="main">
     <!-- <app-admin-navbar></app-admin-navbar> -->
 
-    <div class="container" [ngClass]="{'blur':editItemData}">
-        <h2>component menu</h2>
+    <div class="container">
         <div class="menu">
             <h2>Menu Items</h2>
+            <button class="btn-add" (click)="showAddForm(addNewItem)">Add Item</button>
             <table>
                 <thead>
                     <tr>
+                        <th>Img</th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Description</th>
@@ -17,6 +18,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of menuItems">
+                        <td class="img-item"><img src="{{ item.img }}" alt=""></td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.price | currency }}</td>
                         <td>{{ item.description }}</td>
@@ -33,7 +35,7 @@
         </div>
 
         <!-- Form thêm mới item -->
-        <div class="add-item-form">
+        <div class="add-item-form" *ngIf="addNewItem">
             <h3>Add New Item</h3>
             <form (ngSubmit)="addItem()">
                 <label>
@@ -64,19 +66,23 @@
                         <option [value]="0">Out of Stock</option>
                     </select>
                 </label>
-                <button>Add Item</button>
+                <div class="btn">
+                    <button type="submit">Add Item</button>
+                    <button type="button" class="btn-cancel-add" (click)="hideAddForm()">Cancel</button>
+                </div>
             </form>
         </div>
         <!-- Form thêm mới item -->
 
-        <div class="overlay"></div>
+        <div class="overlay" *ngIf="editItemData"></div>
+        <div class="overlay" *ngIf="addNewItem"></div>
 
         <!-- form update item data -->
         <div *ngIf="editItemData" class="edit-form">
             <h3>Edit Item</h3>
             <form (ngSubmit)="updateItem()">
                 <label for="name">Name</label>
-                <input id="name" [(ngModel)]="editItemData.name" name="name" required />
+                <input id="name" type="text" [(ngModel)]="editItemData.name" name="name" required />
 
                 <label for="price">Price</label>
                 <input id="price" type="number" [(ngModel)]="editItemData.price" name="price" required />
@@ -90,8 +96,14 @@
                     <option [value]="0">Out of Stock</option>
                 </select>
 
-                <button type="submit">Save</button>
-                <button type="button" (click)="editItemData = null" class="btn-cancel-edit">Cancel</button>
+                <label for="img">Image</label>
+                <input type="file" id="img" [(ngModel)]="editItemData.img" name="img" />
+                <img style="height: 50px; float:right;" src="{{editItemData.img}}" alt="">
+
+                <div class="btn">
+                    <button type="submit">Save</button>
+                    <button type="button" (click)="editItemData = null" class="btn-cancel-edit">Cancel</button>
+                </div>
             </form>
         </div>
 
@@ -99,23 +111,3 @@
     </div>
 
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const overlay = document.querySelector('.overlay');
-        const editForm = document.querySelector('.edit-form');
-        
-        function showEditForm() {
-            document.querySelector('.overlay').style.display = 'block';
-        }
-
-        function hideEditForm() {
-            document.querySelector('.overlay').style.display = 'none';
-        }
-    
-        document.querySelector('.btn-edit').addEventListener('click', showEditForm);
-        document.querySelector('.btn-cancel-edit').addEventListener('click', hideEditForm);
-    });
-    
-
-</script>

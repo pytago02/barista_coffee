@@ -18,6 +18,7 @@ export class MenuComponent implements OnInit {
     price: 0,
     description: '',
     availability: 1,
+    img: '',
   };
   editItemData: any = null;
 
@@ -28,6 +29,20 @@ export class MenuComponent implements OnInit {
   hideEditForm(): void {
     this.editItemData = null;
   }
+
+  addNewItem: any = null;
+
+  showAddForm(item:any): void {
+    this.addNewItem = 1;
+    // this.editItemData = {};
+  }
+
+  hideAddForm(): void {
+    this.addNewItem = null;
+  }
+
+
+  
 
   constructor(private menuService: MenuService) {}
 
@@ -60,6 +75,7 @@ export class MenuComponent implements OnInit {
       price: 0,
       description: '',
       availability: 1,
+      img: '',
     };
   }
 

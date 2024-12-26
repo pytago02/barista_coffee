@@ -9,7 +9,6 @@
     list-style: none;
 }
 
-
 .navbar {
     position: fixed;
     top: 0;
@@ -22,6 +21,11 @@
     background-color: rgba(23, 21, 22, 0.8);
     color: #fff;
     padding: 5px 20px;
+
+    &.scrolled{
+        background-color: #cfcfcf ;
+    color: #c7a17a;
+    }
 }
 
 
