@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
 import { AdminNavbarComponent } from './admin/admin-navbar/admin-navbar.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { MenuComponent } from './admin/menu/menu.component';
-import { AddItemComponent } from './admin/menu/add-item/add-item.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,6 @@ import { AddItemComponent } from './admin/menu/add-item/add-item.component';
     AdminNavbarComponent,
     DashboardComponent,
     MenuComponent,
-    AddItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,10 +35,12 @@ import { AddItemComponent } from './admin/menu/add-item/add-item.component';
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
+    CommonModule
   ],
   providers: [
     // provideClientHydration(withEventReplay()),
     // HttpClient
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent]
 })

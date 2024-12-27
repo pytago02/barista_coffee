@@ -5,7 +5,6 @@ import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { MenuComponent } from './admin/menu/menu.component';
-import { AddItemComponent } from './admin/menu/add-item/add-item.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -15,7 +14,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'menu', component: MenuComponent },
-      { path: 'addItemMenu', component: AddItemComponent },
+      
     ],
   },
   { path: 'home', component: HomeComponent },

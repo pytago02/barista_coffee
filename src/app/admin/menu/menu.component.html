@@ -4,12 +4,17 @@
     <div class="container">
         <div class="menu">
             <h2>Menu Items</h2>
-            <button class="btn-add" (click)="showAddForm(addNewItem)">Add Item</button>
-            <table>
+            <button class="btn-add btn-list-menu" (click)="showAddForm(addNewItem)">Add Item</button>
+            <button class="btn-list-menu" (click)="setId(0)"  >All menu</button>
+            <button class="btn-list-menu" (click)="setId(1)" >đồ uống</button>
+            <button class="btn-list-menu" (click)="setId(2)" >Khai vị</button>
+            <button class="btn-list-menu" (click)="setId(3)" >Món chính</button>
+            
+            <table class="all-menu">
                 <thead>
                     <tr>
-                        <th>Img</th>
                         <th>Name</th>
+                        <th>Category</th>
                         <th>Price</th>
                         <th>Description</th>
                         <th>Availability</th>
@@ -18,8 +23,12 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of menuItems">
-                        <td class="img-item"><img src="{{ item.img }}" alt=""></td>
                         <td>{{ item.name }}</td>
+                        <td>
+                            {{ item.category_id === '1' ? 'Đồ uống' : (item.category_id === '2' ? 'Khai vị' :
+                            (item.category_id === '3' ? 'Món chính' : 'Không xác định')) }}
+                        </td>
+
                         <td>{{ item.price | currency }}</td>
                         <td>{{ item.description }}</td>
                         <td>{{ (item.availability == 1) ? 'Available' : 'Out of Stock' }}</td>
@@ -95,10 +104,6 @@
                     <option [value]="1">Available</option>
                     <option [value]="0">Out of Stock</option>
                 </select>
-
-                <label for="img">Image</label>
-                <input type="file" id="img" [(ngModel)]="editItemData.img" name="img" />
-                <img style="height: 50px; float:right;" src="{{editItemData.img}}" alt="">
 
                 <div class="btn">
                     <button type="submit">Save</button>

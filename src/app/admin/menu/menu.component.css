@@ -59,6 +59,11 @@
     transition: all 0.5s;
 }
 
+.menu .btn-list-menu {
+    margin: 5px;
+
+}
+
 .menu .btn-delete {
     background-color: #f44336;
     margin: 0 10px;
@@ -83,9 +88,9 @@
     pointer-events: auto;
 
     display: flexbox;
-    
+
     justify-content: space-between;
-    
+
 }
 
 .add-item-form h3 {
@@ -124,31 +129,32 @@
     background-color: #45a049;
 }
 
-.add-item-form .btn-cancel-add{
+.add-item-form .btn-cancel-add {
     background-color: #f44336;
 }
 
-.add-item-form .btn-cancel-add:hover{
+.add-item-form .btn-cancel-add:hover {
     background-color: #e53935;
 }
 
-.btn{
+.btn {
     display: flex;
     width: 100%;
     justify-content: space-around;
 }
 
-.img-item{
+.img-item {
     display: flex;
     justify-content: center;
     justify-items: center;
 
     height: 50px;
-    }
+}
 
-.img-item img{
+.img-item img {
     height: 100%;
 }
+
 /* form edit item */
 
 .edit-form {

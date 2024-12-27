@@ -18,7 +18,6 @@ export class MenuComponent implements OnInit {
     price: 0,
     description: '',
     availability: 1,
-    img: '',
   };
   editItemData: any = null;
 
@@ -32,7 +31,7 @@ export class MenuComponent implements OnInit {
 
   addNewItem: any = null;
 
-  showAddForm(item:any): void {
+  showAddForm(item: any): void {
     this.addNewItem = 1;
     // this.editItemData = {};
   }
@@ -41,8 +40,7 @@ export class MenuComponent implements OnInit {
     this.addNewItem = null;
   }
 
-
-  
+  public category_id: number = 0;
 
   constructor(private menuService: MenuService) {}
 
@@ -50,10 +48,16 @@ export class MenuComponent implements OnInit {
     this.loadMenu();
   }
 
-  private loadMenu(): void {
-    this.menuService.getMenu().subscribe((data) => {
+  public loadMenu(): void {
+    this.menuService.getMenu(this.category_id).subscribe((data) => {
       this.menuItems = data;
     });
+  }
+
+  // Cập nhật giá trị category_id khi người dùng chọn một danh mục
+  setId(value: number): void {
+    this.category_id = value;
+    this.loadMenu(); // Gọi lại API với category_id đã thay đổi
   }
 
   addItem(): void {
@@ -61,6 +65,7 @@ export class MenuComponent implements OnInit {
       next: (response) => {
         this.loadMenu();
         this.resetForm();
+        this.hideAddForm();
       },
       error: (error: HttpErrorResponse) => {
         console.error(error.message);
@@ -75,10 +80,10 @@ export class MenuComponent implements OnInit {
       price: 0,
       description: '',
       availability: 1,
-      img: '',
     };
   }
 
+  // xoá item
   public deleteItem(item_id: number): void {
     if (confirm('Are you sure you want to delete this item?')) {
       this.menuService.deleteMenuItem(item_id).subscribe({
@@ -94,10 +99,12 @@ export class MenuComponent implements OnInit {
     }
   }
 
+  // Chỉnh sửa item
   editItem(item: any): void {
     this.editItemData = { ...item };
   }
 
+  // update item
   updateItem(): void {
     if (this.editItemData) {
       this.menuService.updateMenuItem(this.editItemData).subscribe({
