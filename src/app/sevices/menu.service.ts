@@ -1,23 +1,60 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MenuService {
+  private api: string = 'http://localhost:10093/api/menu-items';
   constructor(public http: HttpClient) {}
 
+  /*
   // Hàm gọi API để lấy menu theo category_id
-  public getMenu(category_id: number): Observable<any[]> {
-    const url = `http://localhost/angular-api/getMenu.php?category_id=${category_id}`;
-    return this.http.get<any[]>(url);
-  }  
-
+  public getMenu1(category_id: number): Observable<any[]> {
+    let accessToken: string | null = null;
+  
+    // Ensure localStorage is only accessed in the browser
+    if (typeof window !== 'undefined' && localStorage) {
+      accessToken = localStorage.getItem('accessToken');
+    }
+  
+    const headers = new HttpHeaders({
+      'Authorization': accessToken ? `Bearer ${accessToken}` : ''
+    });
+  
+    // const url = `http://localhost/angular-api/getMenu.php?category_id=${category_id}`;
+    return this.http.get<any[]>(this.api, { headers }).pipe(
+      map(res => res)
+    );
+  }
+  
   // Hàm thêm item vào menu
-  public addMenuItem(item: any): Observable<any> {
+  public addMenuItem1(item: any): Observable<any> {
+    let accessToken: string | null = null;
+  
+    // Ensure localStorage is only accessed in the browser
+    if (typeof window !== 'undefined' && localStorage) {
+      accessToken = localStorage.getItem('accessToken');
+    }
+  
+    const headers = new HttpHeaders({
+      'Authorization': accessToken ? `Bearer ${accessToken}` : ''
+    });
+    console.log(item);
+    // const url = 'http://localhost/angular-api/add_menu_item.php';
+    return this.http.post<any>(this.api, item, {headers});
+  }
+  */
+
+  public getMenu(category_id: number): Observable<any[]> {
+    const api = `http://localhost/angular-api/getMenu.php?category_id=${category_id}`;
+    return this.http.get<any[]>(api);
+  }
+
+  public addMenuItem(formData: FormData): Observable<any> {
     const url = 'http://localhost/angular-api/add_menu_item.php';
-    return this.http.post<any>(url, item);
+    return this.http.post<any>(url, formData);
   }
 
   // Hàm xóa item khỏi menu
@@ -31,4 +68,6 @@ export class MenuService {
     const url = `http://localhost/angular-api/updateItemMenu.php`;
     return this.http.put<any>(url, item);
   }
+
+
 }

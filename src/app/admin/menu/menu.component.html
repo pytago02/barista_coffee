@@ -1,4 +1,7 @@
 <div class="main">
+
+    <!-- NodeJS, express, knexjs, multer -->
+     <!-- interceptor -->
     <!-- <app-admin-navbar></app-admin-navbar> -->
 
     <div class="container">
@@ -9,10 +12,11 @@
             <button class="btn-list-menu" (click)="setId(1)" >đồ uống</button>
             <button class="btn-list-menu" (click)="setId(2)" >Khai vị</button>
             <button class="btn-list-menu" (click)="setId(3)" >Món chính</button>
-            
+
             <table class="all-menu">
                 <thead>
                     <tr>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Category</th>
                         <th>Price</th>
@@ -23,6 +27,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of menuItems">
+                        <td  style="padding: 0; margin: 0;"><img id="imgItem" [src]="baseUrl + item.img" alt=""></td>
                         <td>{{ item.name }}</td>
                         <td>
                             {{ item.category_id === '1' ? 'Đồ uống' : (item.category_id === '2' ? 'Khai vị' :
@@ -46,7 +51,7 @@
         <!-- Form thêm mới item -->
         <div class="add-item-form" *ngIf="addNewItem">
             <h3>Add New Item</h3>
-            <form (ngSubmit)="addItem()">
+            <form (ngSubmit)="addItem()" >
                 <label>
                     Name:
                     <input type="text" [(ngModel)]="newItem.name" name="name" required />
@@ -74,6 +79,10 @@
                         <option [value]="1">Available</option>
                         <option [value]="0">Out of Stock</option>
                     </select>
+                </label>
+                <label>
+                    Image:
+                    <input type="file" (change)="onChangeImage($event)" [(ngModel)]="newItem.img" name="img" required>
                 </label>
                 <div class="btn">
                     <button type="submit">Add Item</button>

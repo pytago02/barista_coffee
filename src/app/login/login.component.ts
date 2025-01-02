@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../sevices/auth.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +17,8 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   public onLogin(): void {
-    this.authService.login(this.username, this.password).subscribe(
-      (response) => {
+    this.authService.login(this.username, this.password).subscribe({
+      next: (response)=>{
         if (response.status === 'success') {
           if (response.role === 'admin') {
             this.router.navigate(['/admin/dashboard']);
@@ -28,9 +29,11 @@ export class LoginComponent {
           this.errorMessage  = response.message;
         }
       },
-      (error) => {
+      error:(error:HttpErrorResponse)=>{
         this.errorMessage = 'Đã xảy ra lỗi khi cố gắng đăng nhập';
       }
+    }
+      
     );
   }
 }

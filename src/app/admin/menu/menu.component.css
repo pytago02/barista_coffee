@@ -10,7 +10,12 @@
     pointer-events: none;
 }
 
-
+#imgItem{
+    height: 50px;
+}
+td{
+    height: 50px;
+}
 
 .menu {
     width: 100%;

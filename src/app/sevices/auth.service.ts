@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  // private apiUrl = 'http://localhost:10093/api/auth/login';
   private apiUrl = 'http://localhost/angular-api/login.php';
 
   constructor(private http: HttpClient) { }
