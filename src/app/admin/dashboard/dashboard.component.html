@@ -1,0 +1,59 @@
+<div class="main">
+
+    <!-- NodeJS, express, knexjs, multer -->
+    <!-- interceptor -->
+    <!-- <app-admin-navbar></app-admin-navbar> -->
+
+    <div class="container">
+        <div class="menu">
+            <h2>Dashboard</h2>
+
+            <div class="fill">
+                <label for="">
+                    Floor
+                    <select name="floor" (change)="onFloorSelected($event)" [(ngModel)]="floor">
+                        <option [value]="-1">All</option>
+                        <option *ngFor="let item of floors" [value]="item.floor">{{item.floor}}</option>
+                    </select>
+                </label>
+
+                <label for="">
+                    Status
+                    <select name="status" (change)="onStatusSelected($event)" [(ngModel)]="status">
+                        <option [value]="-1">All</option>
+                        <option *ngFor="let item of statuss" [value]="item.status">{{item.status}}</option>
+                    </select>
+                </label>
+            </div>
+
+            <table class="all-menu">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Floor</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of tables">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.floor }}</td>
+                        <td>{{ item.status === '0' ? 'Đang trống' : (item.status === '1' ? 'Đang phục vụ' :
+                            (item.status === '2' ? 'Sửa chữa' : 'Không xác định')) }}</td>
+
+                        <td>
+                            <button class="btn-edit">View</button>
+                            <button class="btn-delete">setting</button>
+                        </td>
+                        <!-- <td><button (click)="editItem(item)">Edit</button></td> -->
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+</div>
