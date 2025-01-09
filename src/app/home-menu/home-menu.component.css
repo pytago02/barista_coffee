@@ -1,0 +1,128 @@
+h2 {
+    font-size: 35px;
+    letter-spacing: 1px;
+    line-height: 1.14286em;
+    font-family: Oswald, sans-serif;
+    text-transform: uppercase;
+}
+
+.main {}
+
+.top-title-menu,
+.banner {
+    background-image: url("/assets/images/Team-title-area-parallax-img-2.jpg");
+    height: 410px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.top-title-menu span {
+    font-size: 33px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: aliceblue;
+    line-height: 100%;
+}
+
+.container-menu01,
+.container-menu {
+    margin: 0;
+    min-height: 500px;
+    background-color: #F2F0EA;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 70px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.menu-title {
+    padding-top: 40px;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+
+.menu-title h2 {
+    text-align: center;
+    color: #30271c;
+}
+
+
+.menu-title .line {
+    text-align: center;
+    background-color: #30271c;
+    height: 2px;
+    width: 200px;
+}
+
+.menu {
+    width: 65%;
+    display: flex;
+
+}
+
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.menus {
+    width: 40%;
+    gap: 20px;
+    flex: 1;
+}
+
+.item {
+    color: #30271c;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.item .img-item img {
+    width: 80px;
+    height: auto;
+}
+
+.item .title {
+    flex-grow: 1;
+}
+
+.item .title h3 {
+    font-weight: 700;
+    font-size: 22px;
+    text-transform: uppercase;
+}
+
+.item .price {
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 22px;
+
+}
+
+.item .end-line {
+    height: 1px;
+    background-color: #c7a17a;
+}
+
+/* Banner 02 */
+.banner02 {
+    background-image: url(/assets/images/Menu-2-parallax-img-1.jpg);
+}
+
+.banner03 {
+    background-image: url(/assets/images/the-psychology-of-coffee-shops-511448.png);
+}
+
+/* Banner 02  END*/

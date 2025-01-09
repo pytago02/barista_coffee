@@ -1,63 +1,336 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadFileService } from '../../sevices/upload-file.service';
 import { response } from 'express';
-import { error, log } from 'console';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Console, error, log } from 'console';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpProgressEvent,
+} from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TablesService } from '../../sevices/tables.service';
+import { MenuService } from '../../sevices/menu.service';
+import { OrdersService } from '../../sevices/orders.service';
+import { PaymentService } from '../../sevices/payment.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: false,
-  
+
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
   public tables: any[] = [];
   public floors: any[] = [];
   public statuss: any[] = [];
-  public floor:number = -1;
+  public floor: number = -1;
   public status = -1;
+  public addNewItem: any = false;
+  public newItem: any = {
+    name: '',
+    floor: 1,
+    status: 0,
+    qr_code: '',
+  };
+  public file: File | null = null;
+  public editItemData: any = null;
+  public viewTableData: any = null;
+  public menu: any[] = [];
+  private category_id = 0;
+  public baseUrl = 'http://localhost/angular-api/';
+  public itemOderSelected: any = null;
 
-  constructor(private tablesService : TablesService){}
+  // Số lượng và tổng tiền cho món ăn được chọn
+  public soluongOder: number = 1; // Số lượng mặc định là 1
+  public totalItemOder: number = 0; // Tổng tiền cho món đã chọn
+
+  // Oder
+  public orderData: any = [];
+
+  constructor(
+    private tablesService: TablesService,
+    private menuService: MenuService,
+    private ordersService: OrdersService,
+    private paymentService: PaymentService
+  ) {}
   ngOnInit(): void {
-      this.loadTables();
+    this.loadTables();
+    this.loadMenu();
   }
 
-  public setFloor(value : number):void{
+  public setFloor(value: number): void {
     this.floor = value;
     this.loadTables();
   }
 
-  public setStatus(value : number):void{
+  public setStatus(value: number): void {
     this.status = value;
     this.loadTables();
   }
 
-  public onFloorSelected(event : any):void{
+  public onFloorSelected(event: any): void {
     const selectedFloor = +(event.target as HTMLSelectElement).value;
     this.setFloor(selectedFloor);
   }
 
-  public onStatusSelected(event : any):void{
+  public onStatusSelected(event: any): void {
     const selectedStatus = +(event.target as HTMLSelectElement).value;
     this.setStatus(selectedStatus);
   }
 
-  public loadTables():void{
-    this.tablesService.getTables(this.floor, this.status).subscribe((data)=>{
+  public loadTables(): void {
+    this.tablesService.getTables(this.floor, this.status).subscribe((data) => {
       this.tables = data;
+      // console.log(this.tables);
     });
 
-    this.tablesService.getFloors().subscribe((data)=>{
+    this.tablesService.getFloors().subscribe((data) => {
       this.floors = data;
       // console.log(this.floors);
     });
 
-    this.tablesService.getStatuss().subscribe((data)=>{
+    this.tablesService.getStatuss().subscribe((data) => {
       this.statuss = data;
       // console.log(this.statuss);
+    });
+  }
+
+  public loadMenu(): void {
+    this.menuService.getMenu(this.category_id).subscribe((data) => {
+      this.menu = data;
+    });
+  }
+
+  public showAddForm(item: any): void {
+    this.addNewItem = true;
+  }
+
+  hideAddForm(): void {
+    this.addNewItem = false;
+  }
+
+  public onChangeImage(event: any): void {
+    const img = event.target.files[0];
+    if (img) {
+      this.file = img;
+    }
+    console.log(this.file);
+  }
+
+  public addItem(): void {
+    if (this.file && this.newItem) {
+      const formData = new FormData();
+      formData.append('name', this.newItem.name);
+      formData.append('floor', this.newItem.floor.toString());
+      formData.append('status', this.newItem.status);
+      formData.append('file', this.file);
+
+      console.log('FormData gửi đi:', formData);
+
+      this.tablesService.addTable(formData).subscribe({
+        next: (response) => {
+          ``;
+          console.log(response);
+          this.loadTables();
+          this.resetForm();
+          this.hideAddForm();
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error(error.message);
+          console.log('loi http');
+          console.log(formData.get);
+        },
+      });
+    } else console.log('Khong dien du thong tin');
+  }
+
+  public resetForm(): void {
+    this.newItem.name = '';
+    this.newItem.floor = 1;
+    this.newItem.status = 0;
+    this.newItem.qr_code = '';
+  }
+
+  // Chỉnh sửa item
+  public editItem(item: any): void {
+    this.editItemData = { ...item };
+    console.log('EditItemData: ', this.editItemData);
+  }
+
+  // update item
+  public updateItem(): void {
+    if (this.editItemData || this.file) {
+      // console.log('EditItemData: ', this.editItemData);
+      this.tablesService.updateTable(this.editItemData).subscribe({
+        next: (res) => {
+          this.editItemData = null;
+          this.loadTables();
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Failed to update item:', error.message);
+        },
+      });
+    }
+    if (this.editItemData) {
+      if (this.file) {
+        const formData = new FormData();
+        formData.append('name', this.newItem.name);
+        formData.append('floor', this.newItem.floor.toString());
+        formData.append('status', this.newItem.status);
+        formData.append('file', this.file);
+
+        this.tablesService.updateTable(formData).subscribe({
+          next: (res) => {
+            this.editItemData = null;
+            this.loadTables();
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error('Failed to update item:', error.message);
+          },
+        });
+      } else {
+        const formData = new FormData();
+        formData.append('name', this.newItem.name);
+        formData.append('floor', this.newItem.floor);
+        formData.append('status', this.newItem.status);
+
+        this.tablesService.updateTable(formData).subscribe({
+          next: (res) => {
+            this.editItemData = null;
+            this.loadTables();
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error('Failed to update item:', error.message);
+          },
+        });
+      }
+    }
+  }
+
+  public viewTable(item: any): void {
+    this.viewTableData = { ...item };
+    this.loadOder();
+    // console.log(this.viewTableData);
+  }
+
+  setId(value: number): void {
+    this.category_id = value;
+    this.loadMenu();
+  }
+
+  public selectedOder(item: any): void {
+    this.itemOderSelected = { ...item };
+    this.total();
+  }
+
+  public processOrder(): void {
+    if (this.itemOderSelected && this.orderData.length > 0) {
+      this.itemOderSelected.quantity = this.soluongOder;
+      this.itemOderSelected.order_id = this.orderData[0].order_id;
+      this.itemOderSelected.table_id = this.orderData[0].table_id;
+      this.itemOderSelected.total_amount = this.total_amount;
+      console.log('Đặt hàng:', this.itemOderSelected);
+
+      this.ordersService.addOrderDetail(this.itemOderSelected).subscribe({
+        next: (response) => {
+          if (response && response.error) {
+            console.error('Máy chủ trả về lỗi:', response.error);
+          } else {
+            console.log('Yêu cầu thành công:', response);
+            this.loadOder();
+            this.soluongOder = 1;
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error(error);
+          console.log('Nội dung lỗi:', error.error);
+        },
+      });
+    } else
+      console.error(
+        'Dữ liệu đơn hàng không hợp lệ:',
+        this.itemOderSelected,
+        this.orderData
+      );
+  }
+
+  public total_amount:number = 0;
+  public total(): void {
+    if (this.itemOderSelected) {
+      this.totalItemOder = this.soluongOder * this.itemOderSelected.price;
+      this.total_amount += this.totalItemOder;
+    }
+  }
+
+  // ODERS MENU
+  public loadOder(): void {
+    this.ordersService
+      .getOder(this.viewTableData.table_id)
+      .subscribe((data) => {
+        this.orderData = data;
+        // console.log('Order View Table', this.orderData);
+      });
+  }
+
+  // Payment
+  public paymentData: any = null;
+  public payment(): void {
+    this.paymentData = this.orderData[0];
+    
+    // console.log('paymentData: ', this.paymentData);
+  }
+
+  public payment_method = 'cash';
+  public amount_paid: number = 0;
+  public cashBack: number = 0;
+  public amountPaid(): number {
+    this.cashBack = this.amount_paid - this.paymentData.total_amount;
+    return this.cashBack;
+  }
+
+  public isPayment(): void {
+    if(confirm("xác nhận thanh toán")){
+      this.paymentData.payment_method = this.payment_method;
+      this.paymentData.amount_paid = this.amount_paid;
+      // console.log('isPayment:', this.paymentData);
+      const paymentRequest = { ...this.paymentData };
+      // console.log('Payment Request:', paymentRequest);
+  
+      this.paymentService.payment(this.paymentData).subscribe({
+        next: (response) => {
+          this.paymentData = null;
+          this.total_amount = 0;
+          this.loadOder();
+          this.loadTables();
+          this.resetInfoPayment();
+          // console.log('Payment Success', response);
+        },
+        error: (error: HttpProgressEvent) => {
+          console.error('Payment Error:', error);
+        },
+      });
+    }
+  }
+
+  public resetInfoPayment(){
+    this.amount_paid = 0;
+
+  }
+
+  // Open Table
+  public openTable():void{
+    // console.log('tables_id', this.viewTableData.table_id);
+    this.ordersService.openTable(this.viewTableData.table_id).subscribe({
+      next:(response)=>{
+        this.loadOder();
+        this.loadMenu();
+        this.loadTables();
+        console.log("Open table success", response);
+      },
+      error:(error:HttpErrorResponse)=>{
+        console.error("Open table ERROR: ", error);
+      }
     });
   }
 }

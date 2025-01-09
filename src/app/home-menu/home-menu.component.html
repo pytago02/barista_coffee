@@ -1,0 +1,194 @@
+<app-header></app-header>
+<div class="main">
+    <div class="top-title-menu banner">
+        <!-- <img src="/assets/images/Team-title-area-parallax-img-2.jpg" alt=""> -->
+        <span>our menu</span>
+    </div>
+
+    <div class="container-menu01 container-menu" id="drinks">
+        <div class="menu-title">
+            <h2>menu barista drinks</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="menu">
+            <div class="menus left-menu">
+                <div class="menu-item" *ngFor="let item of loadMenuDataDrinks | slice:0:(loadMenuDataDrinksLength/2)">
+                    <div class="item">
+                        <div class="img-item">
+                            <a href="">
+                                <img [src]="baseUrl + item.img" alt="" class="img-item">
+                            </a>
+                        </div>
+    
+                        <div class="title">
+                            <h3>{{item.name}}</h3>
+                            <div class="sub">
+                                {{item.description}}
+                            </div>
+                            <div class="end-line"></div>
+                        </div>
+    
+                        <div class="price">
+                            <h3>{{item.price | currency}}</h3>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+
+            <div class="menus right-menu">
+                <div class="menu-item" *ngFor="let item of loadMenuDataDrinks | slice:(loadMenuDataDrinksLength/2):loadMenuDataDrinksLength">
+                    <div class="item">
+                        <div class="img-item">
+                            <a href="">
+                                <img [src]="baseUrl + item.img" alt="" class="img-item">
+                            </a>
+                        </div>
+    
+                        <div class="title">
+                            <h3>{{item.name}}</h3>
+                            <div class="sub">
+                                {{item.description}}
+                            </div>
+                            <div class="end-line"></div>
+                        </div>
+    
+                        <div class="price">
+                            <h3>{{item.price | currency}}</h3>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner02 banner">
+        <img src="/assets/images/Craft-logo-2.png" alt="">
+    </div>
+
+    <div class="container-menu02 container-menu">
+        <div class="menu-title">
+            <h2>menu barista appetizer</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="menu">
+            <div class="menus left-menu">
+                <div class="menu-item" *ngFor="let item of loadMenuDataAppetizer | slice:0:(loadMenuDataAppetizerLength/2)">
+                    <div class="item">
+                        <div class="img-item">
+                            <a href="">
+                                <img [src]="baseUrl + item.img" alt="" class="img-item">
+                            </a>
+                        </div>
+    
+                        <div class="title">
+                            <h3>{{item.name}}</h3>
+                            <div class="sub">
+                                {{item.description}}
+                            </div>
+                            <div class="end-line"></div>
+                        </div>
+    
+                        <div class="price">
+                            <h3>{{item.price | currency}}</h3>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+
+            <div class="menus right-menu">
+                <div class="menu-item" *ngFor="let item of loadMenuDataAppetizer | slice:(loadMenuDataAppetizerLength/2):loadMenuDataAppetizerLength">
+                    <div class="item">
+                        <div class="img-item">
+                            <a href="">
+                                <img [src]="baseUrl + item.img" alt="" class="img-item">
+                            </a>
+                        </div>
+    
+                        <div class="title">
+                            <h3>{{item.name}}</h3>
+                            <div class="sub">
+                                {{item.description}}
+                            </div>
+                            <div class="end-line"></div>
+                        </div>
+    
+                        <div class="price">
+                            <h3>{{item.price | currency}}</h3>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner03 banner">
+        <img src="/assets/images/logo-2.png" alt="">
+    </div>
+
+    <div class="container-menu02 container-menu">
+        <div class="menu-title">
+            <h2>menu barista Foods</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="menu">
+            <div class="menus left-menu">
+                <div class="menu-item" *ngFor="let item of loadMenuDataFoods | slice:0:(loadMenuDataFoodsLength/2)">
+                    <div class="item">
+                        <div class="img-item">
+                            <a href="">
+                                <img [src]="baseUrl + item.img" alt="" class="img-item">
+                            </a>
+                        </div>
+    
+                        <div class="title">
+                            <h3>{{item.name}}</h3>
+                            <div class="sub">
+                                {{item.description}}
+                            </div>
+                            <div class="end-line"></div>
+                        </div>
+    
+                        <div class="price">
+                            <h3>{{item.price | currency}}</h3>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+
+            <div class="menus right-menu">
+                <div class="menu-item" *ngFor="let item of loadMenuDataFoods | slice:(loadMenuDataFoodsLength/2):loadMenuDataFoodsLength">
+                    <div class="item">
+                        <div class="img-item">
+                            <a href="">
+                                <img [src]="baseUrl + item.img" alt="" class="img-item">
+                            </a>
+                        </div>
+    
+                        <div class="title">
+                            <h3>{{item.name}}</h3>
+                            <div class="sub">
+                                {{item.description}}
+                            </div>
+                            <div class="end-line"></div>
+                        </div>
+    
+                        <div class="price">
+                            <h3>{{item.price | currency}}</h3>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<app-footer></app-footer>

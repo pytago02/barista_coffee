@@ -3,26 +3,24 @@
 <div class="main">
     <div class="navbar" id="navbar" [ngClass]="{'scrolled': isScrolled}">
         <div class="container">
-
-            <a routerLink="" class="logo">
-                <img src="/assets/images/coffee-logo-png-white-7525.png" alt="">
-            </a>
-
-
+            <div class="logo">
+                <img [src]="logoUrl" alt="logo">
+            </div>
+            
             <ul class="navL-links">
-                <li><a routerLink="home">home</a></li>
-                <li><a routerLink="menu">menu</a></li>
-                <li><a routerLink="about">about</a></li>
-                <li><a routerLink="products">products</a></li>
-                <li><a routerLink="review">review</a></li>
-                <li><a routerLink="contact">contact</a></li>
+                <li><a routerLink="/home">home</a></li>
+                <li><a routerLink="/home-menu">menu</a></li>
+                <li><a routerLink="/home-about">about</a></li>
+                <li><a routerLink="/home-products">products</a></li>
+                <li><a routerLink="/home-review">review</a></li>
+                <li><a routerLink="/home-contact">contact</a></li>
                 <li><a href="#blogs">blogs</a></li>
                 <li style="color:white;">|</li>
 
-                <li><a href=""><i class="fas fa-search" id="btn-search" style="color: white;"></i></a></li>
-                <li><a href=""><i class="fas fa-shopping-cart" id="btn-shopping-cart" style="color: white;"></i></a>
+                <li><a href=""><i class="fas fa-search" id="btn-search" ></i></a></li>
+                <li><a href=""><i class="fas fa-shopping-cart" id="btn-shopping-cart" ></i></a>
                 </li>
-                <li><a href=""><i class="fas fa-bars" id="btn-menu" style="color: white;"></i></a></li>
+                <li><a href=""><i class="fas fa-bars" id="btn-menu" ></i></a></li>
             </ul>
 
         </div>

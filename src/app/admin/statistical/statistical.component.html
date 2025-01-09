@@ -1,0 +1,148 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<div class="main">
+    <div class="container">
+        <h3>Thống Kê</h3>
+        <div class="navSatistical">
+            <button (click)="resetLayout(); isContainerStatistical = true">Doanh thu</button>
+            <button (click)="resetLayout(); isContainerBills = true">Hoá đơn</button>
+            <button (click)="resetLayout(); isContainerProducts = true">Sản phẩm</button>
+            <button>Nhân viên</button>
+        </div>
+
+        <div class="container-revenue">
+            <div class="fill">
+                <div class="selectFill">
+                    <label for="fillSelect">Lựa chọn</label>
+                    <select [(ngModel)]="fillSelect" name="fillSelect">
+                        <option value="date">Theo ngày</option>
+                        <option value="week">Theo tuần</option>
+                        <option value="month">Theo tháng</option>
+                        <option value="all">Tất cả</option>
+                    </select>
+                </div>
+
+                <div class="dateSelectFill">
+                    <form (ngSubmit)="selectDate()">
+                        <div class="startDate">
+                            <label for="start_date">Ngày bắt đầu</label>
+                            <input type="{{fillSelect}}" [(ngModel)]="start_date" name="start_date" required />
+                        </div>
+
+                        <div class="endDate">
+                            <label for="end_date">Ngày kết thúc</label>
+                            <input type="{{fillSelect}}" [(ngModel)]="end_date" name="end_date" required />
+                        </div>
+
+                        <button type="submit">Lọc</button>
+                    </form>
+                </div>
+
+                <div class="chartSelectFill">
+                    <label for="chartSelect">Loại biểu đồ</label>
+                    <select [(ngModel)]="chartSelect" name="chartSelect" (change)="loadStatistical()">
+                        <option value="bar">Biểu đồ cột</option>
+                        <option value="line">Biểu đồ đường</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="container-statistical" *ngIf="isContainerStatistical">
+                <div class="parameter">
+                    <div class="statistical">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <label for="statistical">Doanh thu</label>
+                        <h4>{{fillData.totalSales || '0'}}</h4>
+                    </div>
+
+                    <div class="totalBill">
+                        <i class="fa-solid fa-money-bill"></i>
+                        <label for="statistical">Tổng số hoá đơn</label>
+                        <h4>{{fillData.totalBills || '0'}}</h4>
+                    </div>
+                </div>
+
+                <div class="chart chart-DoanhThu" *ngIf="isChart">
+                    <!-- Biểu đồ *ngIf="fillData.data && fillData.data.length > 0" -->
+                    <div *ngIf="isBrowser">
+                        <canvas baseChart [datasets]="[{ data: chartData, label: 'Doanh thu' }]" [labels]="chartLabels"
+                            [options]="chartOptions" [type]="chartType">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="containerBills" *ngIf="isContainerBills">
+                <div class="parameter">
+                    <div class="statistical">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <label for="statistical">Doanh thu</label>
+                        <h4>{{fillData.totalSales || '0'}}</h4>
+                    </div>
+
+                    <div class="totalBill">
+                        <i class="fa-solid fa-money-bill"></i>
+                        <label for="statistical">Tổng số hoá đơn</label>
+                        <h4>{{fillData.totalBills || '0'}}</h4>
+                    </div>
+                </div>
+
+                <table *ngIf="fillData.data">
+                    <thead>
+                        <tr>
+                            <th (click)="sortData('order_id')">Order ID</th>
+                            <th (click)="sortData('payment_id')">Payment ID</th>
+                            <th (click)="sortData('table_id')">Table ID</th>
+                            <th (click)="sortData('payment_method')">Payment Method</th>
+                            <th (click)="sortData('total_amount')">Total Amount</th>
+                            <th (click)="sortData('amount_paid')">Amount Paid</th>
+                            <th (click)="sortData('created_at')">Created At</th>
+                            <th (click)="sortData('paid_at')">Paid At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of fillData.data">
+                            <td>{{item.order_id}}</td>
+                            <td>{{item.payment_id}}</td>
+                            <td>{{item.table_id}}</td>
+                            <td>{{item.payment_method}}</td>
+                            <td>{{item.total_amount}}</td>
+                            <td>{{item.amount_paid}}</td>
+                            <td>{{item.created_at}}</td>
+                            <td>{{item.paid_at}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="containerProducts" *ngIf="isContainerProducts">
+                <div class="parameter">
+                    <div class="statistical">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <label for="statistical">best sale</label>
+                        <h4>{{this.orderProductData.data[0].item_name || ""}}</h4>
+                    </div>
+
+                    <div class="totalBill">
+                        <i class="fa-solid fa-money-bill"></i>
+                        <label for="statistical">Số lượng</label>
+                        <h4>{{this.orderProductData.data[0].total_quantity}}</h4>
+                    </div>
+                </div>
+
+                <div class="chart chart-DoanhThu" *ngIf="isChart">
+                    <div *ngIf="isBrowser">
+                        <canvas baseChart [datasets]="[{ data: chartData, label: 'Số lượng' }]" [labels]="chartLabels"
+                            [options]="chartOptions" [type]="chartType">
+                        </canvas>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

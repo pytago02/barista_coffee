@@ -107,31 +107,33 @@ export class MenuComponent implements OnInit {
   }
 
   addItem(): void {
-    if (this.file && this.newItem) {
-      const formData = new FormData();
-        formData.append('category_id', this.newItem.category_id.toString());
-        formData.append('name', this.newItem.name);
-        formData.append('price', this.newItem.price.toString());
-        formData.append('description', this.newItem.description);
-        formData.append('availability', this.newItem.availability.toString());
-        formData.append('file', this.file);
-
-        console.log('FormData gửi đi:', formData);
-
-      this.menuService.addMenuItem(formData).subscribe({
-        next: (response) => {``
-          console.log(response);
-          this.loadMenu();
-          this.resetForm();
-          this.hideAddForm();
-        },
-        error: (error: HttpErrorResponse) => {
-          console.error(error.message);
-          console.log('loi http');
-          console.log(formData.get);
-        },
-      });
-    }else console.log('Khong dien du thong tin');
+    if(confirm("xác nhận tạo món")){
+      if (this.file && this.newItem) {
+        const formData = new FormData();
+          formData.append('category_id', this.newItem.category_id.toString());
+          formData.append('name', this.newItem.name);
+          formData.append('price', this.newItem.price.toString());
+          formData.append('description', this.newItem.description);
+          formData.append('availability', this.newItem.availability.toString());
+          formData.append('file', this.file);
+  
+          console.log('FormData gửi đi:', formData);
+  
+        this.menuService.addMenuItem(formData).subscribe({
+          next: (response) => {``
+            console.log(response);
+            this.loadMenu();
+            this.resetForm();
+            this.hideAddForm();
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error(error.message);
+            console.log('loi http');
+            console.log(formData.get);
+          },
+        });
+      }else console.log('Khong dien du thong tin');
+    }
     
   }
 
@@ -148,7 +150,7 @@ export class MenuComponent implements OnInit {
 
   // xoá item
   public deleteItem(item_id: number): void {
-    if (confirm('Are you sure you want to delete this item?')) {
+    if (confirm('Xác nhận xoá món?')) {
       this.menuService.deleteMenuItem(item_id).subscribe({
         next: (response) => {
           // alert('Item deleted successfully: ' + item_id);
@@ -169,17 +171,19 @@ export class MenuComponent implements OnInit {
 
   // update item
   updateItem(): void {
-    if (this.editItemData) {
-      this.menuService.updateMenuItem(this.editItemData).subscribe({
-        next: (res) => {
-          console.log(this.editItemData.description);
-          this.loadMenu();
-          this.editItemData = null;
-        },
-        error: (error: HttpErrorResponse) => {
-          console.error('Failed to update item:', error.message);
-        },
-      });
+    if(confirm("Xác nhận lưu thông tin")){
+      if (this.editItemData) {
+        this.menuService.updateMenuItem(this.editItemData).subscribe({
+          next: (res) => {
+            console.log(this.editItemData.description);
+            this.loadMenu();
+            this.editItemData = null;
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error('Failed to update item:', error.message);
+          },
+        });
+      }
     }
   }
 }

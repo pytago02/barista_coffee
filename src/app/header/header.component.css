@@ -18,13 +18,13 @@
     z-index: 1000;
     background-color: transparent;
     background-color: #171516;
-    background-color: rgba(23, 21, 22, 0.8);
-    color: #fff;
+    background-color: rgba(23, 21, 22, 0);
+    color: #ccc;
     padding: 5px 20px;
 
-    &.scrolled{
-        background-color: #cfcfcf ;
-    color: #c7a17a;
+    
+    &.scrolled {
+        background-color: #fdfdfd;
     }
 }
 
@@ -34,7 +34,7 @@
     justify-content: space-between;
     /* Đẩy logo và nav-links sang hai bên */
     align-items: center;
-    /* Canh giữa các thành phần theo chiều dọc */
+    height: 54px;
 }
 
 .navL-links {
@@ -42,9 +42,13 @@
     align-items: center;
 }
 
+
+
 .logo img {
-    height: 60px;
+    height: 30px;
+
 }
+
 
 .navbar ul li {
     display: inline;
@@ -60,12 +64,37 @@
     padding: 20px;
 }
 
+.navbar.scrolled ul li a {
+    color: #171516;
+    transition: color 0.3s ease;
+}
+
 .navL-links li:hover a {
     color: var(--header-text-color-hover);
     background-color: var(--header-background-hover);
     border-radius: 10px;
+    transition: all 0.5s ease;
 }
 
-.navbar ul li:hover i {
-    background-color: var(--header-background-hover);
+.navbar.scrolled .navL-links li:hover a {
+    background-color: #c7a17a;
+    transition: all 0.5s ease;
 }
+
+/* .navbar ul li i {
+   color: #fff;
+} */
+
+/* .navbar.scrolled .navbar ul li i {
+    color: #171516;
+ }
+  */
+/* .navbar ul li i:hover {
+    background-color: var(--header-background-hover);
+    transition: all 0.5s ease;
+} */
+
+/* .navbar.scrolled .navbar ul li:hover i {
+    background-color: #c7a17a;
+    transition: all 0.5s ease;
+} */

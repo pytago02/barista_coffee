@@ -26,5 +26,15 @@ export class TablesService {
     return this.http.get<any[]>(apiUrl);
   }
 
+  public addTable(formData: FormData): Observable<any> {
+    const url = 'http://localhost/angular-api/addTables.php';
+    return this.http.post<any>(url, formData);
+  }
+
+  public updateTable(item: FormData): Observable<any> {
+    const url = `http://localhost/angular-api/updateTables.php`;
+    return this.http.put<any>(url, item);
+  }
+
   
 }

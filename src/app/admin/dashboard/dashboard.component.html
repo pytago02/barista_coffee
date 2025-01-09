@@ -8,31 +8,42 @@
         <div class="menu">
             <h2>Dashboard</h2>
 
-            <div class="fill">
-                <label for="">
-                    Floor
-                    <select name="floor" (change)="onFloorSelected($event)" [(ngModel)]="floor">
-                        <option [value]="-1">All</option>
-                        <option *ngFor="let item of floors" [value]="item.floor">{{item.floor}}</option>
-                    </select>
-                </label>
+            <div class="nav">
+                <div class="fill">
+                    <label for="">
+                        tầng
+                        <select name="floor" (change)="onFloorSelected($event)" [(ngModel)]="floor">
+                            <option [value]="-1">All</option>
+                            <option *ngFor="let item of floors" [value]="item.floor">{{item.floor}}</option>
+                        </select>
+                    </label>
 
-                <label for="">
-                    Status
-                    <select name="status" (change)="onStatusSelected($event)" [(ngModel)]="status">
-                        <option [value]="-1">All</option>
-                        <option *ngFor="let item of statuss" [value]="item.status">{{item.status}}</option>
-                    </select>
-                </label>
+                    <label for="">
+                        trạng thái
+                        <select name="status" (change)="onStatusSelected($event)" [(ngModel)]="status">
+                            <option [value]="-1">All</option>
+                            <option *ngFor="let item of statuss" [value]="item.status">
+                                {{ item.status === '0' ? 'Đang trống': (item.status === '1' ? 'Đang phục vụ'
+                                :(item.status === '2' ? 'Sửa chữa' : 'Không xác định')) }}
+                            </option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="btn">
+                    <button (click)="showAddForm(addNewItem)">thêm bàn</button>
+                </div>
+
             </div>
 
+            <div class="show"></div>
             <table class="all-menu">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Floor</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>tên</th>
+                        <th>tầng</th>
+                        <th>trạng thái</th>
+                        <th>hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,8 +54,8 @@
                             (item.status === '2' ? 'Sửa chữa' : 'Không xác định')) }}</td>
 
                         <td>
-                            <button class="btn-edit">View</button>
-                            <button class="btn-delete">setting</button>
+                            <button class="btn-view" (click)="viewTable(item)">chi tiết</button>
+                            <button class="btn-edit" (click)="editItem(item)">sửa</button>
                         </td>
                         <!-- <td><button (click)="editItem(item)">Edit</button></td> -->
 
@@ -52,6 +63,185 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="overlay" *ngIf="editItemData"></div>
+        <div class="overlay" *ngIf="addNewItem || viewTableData"></div>
+
+        <!-- Form thêm mới item -->
+        <div class="add-item-form" *ngIf="addNewItem">
+            <h3>Thêm bàn mới</h3>
+            <form (ngSubmit)="addItem()">
+                <label>
+                    tên:
+                    <input type="text" [(ngModel)]="newItem.name" name="name" required />
+                </label>
+                <label>
+                    tầng:
+                    <select [(ngModel)]="newItem.floor" name="floor">
+                        <option [value]="1">Tầng 1</option>
+                        <option [value]="2">Tầng 2</option>
+                        <option [value]="2">Tầng 3</option>
+                    </select>
+                </label>
+                <label>
+                    ảnh:
+                    <input type="file" (change)="onChangeImage($event)" required>
+                </label>
+                <div class="btn">
+                    <button type="submit">thêm</button>
+                    <button type="button" class="btn-cancel-add" (click)="hideAddForm()">huỷ</button>
+                </div>
+            </form>
+        </div>
+        <!-- Form thêm mới item -->
+
+        <!-- form update item data -->
+        <div *ngIf="editItemData" class="edit-form">
+            <h3>chỉnh sửa thông tin bàn</h3>
+            <form (ngSubmit)="updateItem()">
+                <label for="name">tên</label>
+                <input id="name" type="text" [(ngModel)]="editItemData.name" name="name" required />
+
+                <label for="floor">tầng</label>
+                <select name="floor" [(ngModel)]="editItemData.floor">
+                    <option *ngFor="let item of floors" [value]="item.floor">
+                        Tầng {{item.floor}}
+                    </option>
+                </select>
+
+                <label for="status">trạng thái</label>
+                <select name="status" [(ngModel)]="editItemData.status">
+                    <option value="0">Đang trống</option>
+                    <option value="1">Đang phục vụ</option>
+                    <option value="2">Sửa chữa</option>
+                </select>
+
+                <label for="qr_code">QR CODE</label>
+                <input name="qr_code" type="file" (change)="onChangeImage($event)" [(ngModel)]="newItem.qr_code"
+                    name="qr_code" required>
+
+                <div class="btn">
+                    <button type="submit">Lưu</button>
+                    <button type="button" (click)="editItemData = null" class="btn-cancel-edit">huỷ</button>
+                </div>
+            </form>
+        </div>
+        <!-- form update item data -->
+
+        <!-- view table -->
+        <div class="viewTable" *ngIf="viewTableData">
+            <div class="menu">
+                <div class="nav">
+                    <button class="btn-list-menu" (click)="setId(0)">Tất cả</button>
+                    <button class="btn-list-menu" (click)="setId(1)">đồ uống</button>
+                    <button class="btn-list-menu" (click)="setId(2)">Khai vị</button>
+                    <button class="btn-list-menu" (click)="setId(3)">Món chính</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên</th>
+                            <th>giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of menu">
+                            <td (click)="selectedOder(item)">{{ item.name }}</td>
+                            <td (click)="selectedOder(item)">{{ item.price | currency }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="infoTable">
+                <h3> Chi tiết: {{viewTableData.name}}</h3>   
+                <span>Tầng {{viewTableData.floor}}</span>
+
+                <div class="oderItem">
+                    <div class="oderDetail" *ngFor="let order of orderData">
+                        <p><strong>Order ID:</strong> {{ order.order_id }}</p>
+                        <p><strong>trạng thái:</strong> {{ order.order_status }}</p>
+                        <p><strong>Tạo lúc:</strong> {{ order.created_at }}</p>
+                        <p><strong>Nội dung:</strong> {{ order.items }}</p>
+                        <p><strong>Tổng thanh toán:</strong> ${{ order.total_amount }}</p>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="oder">
+                    <h4>Order:</h4>
+                    <form (ngSubmit)="processOrder()">
+                        <div *ngIf="itemOderSelected">
+                            <div class="itemDetail">
+                                <p>{{ itemOderSelected.name }} - {{ itemOderSelected.price | currency }}</p>
+                            </div>
+
+                            <div class="quantity">
+                                <label for="quantity">số lượng:</label>
+                                <input type="number" name="quantity" [(ngModel)]="soluongOder" (change)="total()"
+                                    min="1" />
+                            </div>
+
+                            <div class="total">
+                                <label for="total">tổng tiền:</label>
+                                <h4>{{ totalItemOder | currency }}</h4>
+                            </div>
+
+                            <div id="btnOderItemSubmit">
+                                <button class="btnAddOder" type="submit">order</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="btn">
+                    <button type="submit" (click)="payment()">thanh toán</button>
+                    <button (click)="openTable()">mở bàn</button>
+                    <button type="button" (click)="viewTableData = null" class="btn-cancel-edit">thoát</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- view table END -->
+
+        <div class="overlayPayment" *ngIf="paymentData"></div>
+
+        <!-- payment form -->
+        <div class="payment" *ngIf="paymentData">
+            <h3>Thanh toán</h3>
+            <form (ngSubmit)="isPayment()">
+                <div class="order_id">
+                    <label for="order_id"></label>
+                    <p><strong>Order ID:</strong> {{paymentData.order_id}}</p>
+                </div>
+                <div class="payment_method">
+                    <label for="order_id">Phương thức thanh toán</label>
+                    <select name="payment_method" [(ngModel)]="payment_method">
+                        <option value="cash">tiền mặt</option>
+                        <option value="card">chuyển khoản</option>
+                    </select>
+                </div>
+                <div class="Total Amount">
+                    <label for="cashBack">tổng hoá đơn</label>
+                    <h4>{{paymentData.total_amount | currency}}</h4>
+                </div>
+                <div class="amount_paid">
+                    <label for="amount_paid">tiền khách đưa</label>
+                    <input type="number" name="amount_paid" [(ngModel)]="amount_paid" (change)="amountPaid()">
+                </div>
+                <div class="cashBack">
+                    <label for="cashBack">tiền trả lại</label>
+                    <h4>{{cashBack | currency }}</h4>
+                </div>
+
+                <div class="btn">
+                    <button type="submit" name="isPayment">Thanh toán</button>
+                    <button type="button" (click)="paymentData = null" class="btn-cancel-edit">thoát</button>
+                </div>
+            </form>
+        </div>
+        <!-- payment form END-->
+
 
 
     </div>

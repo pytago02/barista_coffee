@@ -1,0 +1,282 @@
+/* Tổng thể */
+.main {
+    position: relative;
+    /* margin-left: 290px; */
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    width: calc(100% - 290px);
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* max-width: 1200px; */
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Tiêu đề */
+.main h3 {
+    font-size: 24px;
+    color: #343a40;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Navigation buttons */
+.navSatistical {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.navSatistical button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.navSatistical button:hover {
+    background-color: #0056b3;
+}
+
+/* Filter section */
+.fill {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.fill div {
+    flex: 1 1 calc(33.333% - 20px);
+    min-width: 150px;
+}
+
+.fill label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.fill input[type="date"],
+.fill select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.fill input[type="date"]:focus,
+.fill select:focus {
+    border-color: #007bff;
+}
+
+.fill input,
+.fill select {
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.fill input:focus,
+.fill select:focus {
+    border-color: #007bff;
+}
+
+/* Parameter section */
+.parameter {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.parameter div {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.parameter i {
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.parameter label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.parameter h4 {
+    font-size: 26px;
+    color: #28a745;
+    font-weight: bold;
+    margin: 10px 0 0;
+}
+
+/* Chart section */
+.chart {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    /* min-height: 300px; */
+    /* width: 90%; */
+}
+
+.chart canvas{
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .fill {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .parameter {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Button "Hoá đơn" mới trong navSatistical */
+.navSatistical button:nth-child(4) {
+    background-color: #007bff; /* Màu vàng để phân biệt */
+    color: #fff; /* Màu chữ đậm hơn */
+}
+
+.navSatistical button:nth-child(4):hover {
+    background-color: #0056b3; /* Màu vàng đậm hơn khi hover */
+}
+
+/* Nút "Lọc" */
+.fill .dateSelectFill button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #17a2b8; /* Màu xanh lơ */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s;
+    margin-top: 20px;
+}
+
+.fill .dateSelectFill button[type="submit"]:hover {
+    background-color: #138496; 
+    
+}
+
+/* Table styling */
+.containerBills table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.containerBills table thead {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.containerBills table thead th {
+    text-align: left;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.containerBills table thead th:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+.containerBills table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.containerBills table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.containerBills table tbody td {
+    padding: 10px;
+    font-size: 14px;
+    color: #555;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.containerBills table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Sort indicator (optional if you want to show sorting state) */
+.containerBills table thead th::after {
+    content: ' ▴▾'; /* Simple arrow indicators */
+    font-size: 10px;
+    color: #ffffff;
+    margin-left: 5px;
+    visibility: hidden; /* Hide by default */
+}
+
+.containerBills table thead th.sort-asc::after {
+    visibility: visible;
+    content: ' ▴'; /* Ascending */
+}
+
+.containerBills table thead th.sort-desc::after {
+    visibility: visible;
+    content: ' ▾'; /* Descending */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .containerBills .parameter {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .containerBills table thead,
+    .containerBills table tbody {
+        font-size: 12px;
+    }
+}

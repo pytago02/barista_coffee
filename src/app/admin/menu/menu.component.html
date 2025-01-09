@@ -6,9 +6,9 @@
 
     <div class="container">
         <div class="menu">
-            <h2>Menu Items</h2>
-            <button class="btn-add btn-list-menu" (click)="showAddForm(addNewItem)">Add Item</button>
-            <button class="btn-list-menu" (click)="setId(0)"  >All menu</button>
+            <h2>Menu</h2>
+            <button class="btn-add btn-list-menu" (click)="showAddForm(addNewItem)">Thêm món</button>
+            <button class="btn-list-menu" (click)="setId(0)"  >tất cả</button>
             <button class="btn-list-menu" (click)="setId(1)" >đồ uống</button>
             <button class="btn-list-menu" (click)="setId(2)" >Khai vị</button>
             <button class="btn-list-menu" (click)="setId(3)" >Món chính</button>
@@ -16,13 +16,13 @@
             <table class="all-menu">
                 <thead>
                     <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th>Availability</th>
-                        <th>Actions</th>
+                        <th>ảnh</th>
+                        <th>tên món</th>
+                        <th>loại</th>
+                        <th>giá</th>
+                        <th>mô tả</th>
+                        <th>sẵn có</th>
+                        <th>hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,8 +38,8 @@
                         <td>{{ item.description }}</td>
                         <td>{{ (item.availability == 1) ? 'Available' : 'Out of Stock' }}</td>
                         <td>
-                            <button class="btn-edit" (click)="editItem(item)">Edit</button>
-                            <button class="btn-delete" (click)="deleteItem(item.item_id)">delete</button>
+                            <button class="btn-edit" (click)="editItem(item)">Sửa</button>
+                            <button class="btn-delete" (click)="deleteItem(item.item_id)">xoá</button>
                         </td>
                         <!-- <td><button (click)="editItem(item)">Edit</button></td> -->
 
@@ -113,6 +113,9 @@
                     <option [value]="1">Available</option>
                     <option [value]="0">Out of Stock</option>
                 </select>
+                
+                <label for="image">Image</label>
+                <input type="file" (change)="onChangeImage($event)" [(ngModel)]="newItem.img" name="img" required>
 
                 <div class="btn">
                     <button type="submit">Save</button>
@@ -120,7 +123,6 @@
                 </div>
             </form>
         </div>
-
         <!-- form update item data -->
     </div>
 

@@ -1,22 +1,33 @@
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    text-decoration: none;
-    font-family: Oswald, sans-serif;
-    box-sizing: border-box;
-    text-transform: capitalize;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-decoration: none;
+  font-family: Oswald, sans-serif;
+  box-sizing: border-box;
+  text-transform: capitalize;
+  list-style: none;
 }
 
 .admin-layout {
-    display: flex;
-    /* flex-direction: column; */
-    height: 100vh;
-  }
-  
-  .content-area {
-    flex: 1;
-    background-color: #f4f4f4;
-  }
-  
+  display: flex;
+  /* flex-direction: column; */
+  height: 100vh;
+}
+
+.content-area {
+  flex: 1;
+  background-color: #f4f4f4;
+}
+
+app-admin-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* width: 100%; */
+  z-index: 999;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+

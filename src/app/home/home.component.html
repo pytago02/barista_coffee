@@ -3,7 +3,7 @@
     <div class="banner">
         <img src="/assets/images/backgroud-img.jpg" alt="">
     </div>
-    
+
     <div class="container-preview">
         <div class="container-title">
             <p id="sub-title">What Happens Here</p>
@@ -14,7 +14,7 @@
             </div>
             <span class="empty-space"></span>
             <br>
-            <div style="width: 200px; height: 2px; background-color: #c7a17a;" ></div>
+            <div style="width: 200px; height: 2px; background-color: #c7a17a;"></div>
         </div>
 
         <div class="preview-info">
@@ -50,7 +50,9 @@
                     <span>01</span>
                     Beautiful Place
                 </h3>
-                <p>Không gian thưởng thức tuyệt đẹp, bao phủ bởi sắc xanh tự nhiên và thiết kế ấm cúng. Ánh sáng chan hòa cùng phong cách tinh tế tạo nên điểm dừng chân lý tưởng để thư giãn và tận hưởng hương vị cà phê trọn vẹn.</p>
+                <p>Không gian thưởng thức tuyệt đẹp, bao phủ bởi sắc xanh tự nhiên và thiết kế ấm cúng. Ánh sáng chan
+                    hòa cùng phong cách tinh tế tạo nên điểm dừng chân lý tưởng để thư giãn và tận hưởng hương vị cà phê
+                    trọn vẹn.</p>
             </div>
 
             <div class="preview-info02-item">
@@ -59,7 +61,9 @@
                     <span>02</span>
                     Feel the Coffee
                 </h3>
-                <p>Mang đến không gian cà phê ấm cúng, lý tưởng để thư giãn và tận hưởng những tách cà phê chất lượng. Với hạt cà phê hảo hạng và quy trình pha chế tỉ mỉ, mỗi ly cà phê đều mang đến hương vị đậm đà và trải nghiệm tuyệt vời.</p>
+                <p>Mang đến không gian cà phê ấm cúng, lý tưởng để thư giãn và tận hưởng những tách cà phê chất lượng.
+                    Với hạt cà phê hảo hạng và quy trình pha chế tỉ mỉ, mỗi ly cà phê đều mang đến hương vị đậm đà và
+                    trải nghiệm tuyệt vời.</p>
             </div>
 
             <div class="preview-info02-item">
@@ -68,14 +72,15 @@
                     <span>03</span>
                     Full Taste
                 </h3>
-                <p>Hương vị trọn vẹn, kết tinh từ sự cân bằng hoàn hảo giữa đậm đà và tinh tế. Mỗi ngụm cà phê mang đến sự hòa quyện của mùi hương quyến rũ, vị đắng nhẹ, và hậu vị ngọt ngào đầy ấn tượng.</p>
+                <p>Hương vị trọn vẹn, kết tinh từ sự cân bằng hoàn hảo giữa đậm đà và tinh tế. Mỗi ngụm cà phê mang đến
+                    sự hòa quyện của mùi hương quyến rũ, vị đắng nhẹ, và hậu vị ngọt ngào đầy ấn tượng.</p>
             </div>
         </div>
 
     </div>
 
 
-   <div class="container-menu">
+    <div class="container-menu">
         <div class="container-menu-title container-title">
             <p id="sub-title">What Happens Here</p>
             <br>
@@ -85,271 +90,65 @@
             </div>
             <span class="empty-space"></span>
             <br>
-            <div style="width: 200px; height: 2px; background-color: #c7a17a;" ></div>
+            <div style="width: 200px; height: 2px; background-color: #c7a17a;"></div>
         </div>
-    
+
         <div class="menu">
             <div class="menus left-menu">
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item01.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Caffe Latte</h3>
-                        <div class="sub">
-                            Fresh brewed coffee and steamed milk
+                <div class="menu-item" *ngFor="let item of loadMenuData | slice:0:5">
+                    <div class="item">
+                        <div class="img-item">
+                            <a [routerLink]="['/home-menu']" [fragment]="'drinks'">
+                                <img [src]="baseUrl + item.img" alt="" class="img-item">
+                            </a>
                         </div>
-                        <div class="end-line"></div>
-                    </div>
-
-                    <div class="price">
-                        <h3>$2.95</h3>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item02.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Caffe Mocha</h3>
-                        <div class="sub">
-                            Espresso With Milk, and Whipped Cream
+    
+                        <div class="title">
+                            <h3>{{item.name}}</h3>
+                            <div class="sub">
+                                {{item.description}}
+                            </div>
+                            <div class="end-line"></div>
                         </div>
-                        <div class="end-line"></div>
-                    </div>
-                    
-                    <div class="price">
-                        <h3>$3.67</h3>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item03.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>White Chocolate Mocha</h3>
-                        <div class="sub">
-                            Espresso, White Chocolate, Milk, Ice and Cream
+    
+                        <div class="price">
+                            <h3>{{item.price | currency}}</h3>
                         </div>
-                        <div class="end-line"></div>
+    
                     </div>
-                    
-                    <div class="price">
-                        <h3>$2.79</h3>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item04.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Caffe Americano</h3>
-                        <div class="sub">
-                            Espresso Shots and Light Layer of Crema
-                        </div>
-                        <div class="end-line"></div>
-                    </div>
-                    
-                    <div class="price">
-                        <h3>$3.06</h3>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item05.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Cappuccino</h3>
-                        <div class="sub">
-                            Espresso, and Smoothed Layer of Foam
-                        </div>
-                        <div class="end-line"></div>
-                    </div>
-                    
-                    <div class="price">
-                        <h3>$4.03</h3>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item06.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Vanilla Latte</h3>
-                        <div class="sub">
-                            Espresso Milk With Flavor,and Cream
-                        </div>
-                        <div class="end-line"></div>
-                    </div>
-                    
-                    <div class="price">
-                        <h3>$3.65</h3>
-                    </div>
-
                 </div>
             </div>
 
             <div class="menus right-menu">
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item01.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Caffe Latte</h3>
-                        <div class="sub">
-                            Fresh brewed coffee and steamed milk
+                <div class="menu-item" *ngFor="let item of loadMenuData | slice:5:10">
+                    <div class="item">
+                        <div class="img-item">
+                            <a [routerLink]="['/home-menu']" [fragment]="'drinks'">
+                                <img [src]="baseUrl + item.img" alt="" class="img-item">
+                            </a>
                         </div>
-                        <div class="end-line"></div>
-                    </div>
-
-                    <div class="price">
-                        <h3>30k</h3>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item01.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Caffe Latte</h3>
-                        <div class="sub">
-                            Fresh brewed coffee and steamed milk
+    
+                        <div class="title">
+                            <h3>{{item.name}}</h3>
+                            <div class="sub">
+                                {{item.description}}
+                            </div>
+                            <div class="end-line"></div>
                         </div>
-                        <div class="end-line"></div>
-                    </div>
-                    
-                    <div class="price">
-                        <h3>30k</h3>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item01.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Caffe Latte</h3>
-                        <div class="sub">
-                            Fresh brewed coffee and steamed milk
+    
+                        <div class="price">
+                            <h3>{{item.price | currency}}</h3>
                         </div>
-                        <div class="end-line"></div>
+    
                     </div>
-                    
-                    <div class="price">
-                        <h3>30k</h3>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item01.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Caffe Latte</h3>
-                        <div class="sub">
-                            Fresh brewed coffee and steamed milk
-                        </div>
-                        <div class="end-line"></div>
-                    </div>
-                    
-                    <div class="price">
-                        <h3>30k</h3>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item01.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Caffe Latte</h3>
-                        <div class="sub">
-                            Fresh brewed coffee and steamed milk
-                        </div>
-                        <div class="end-line"></div>
-                    </div>
-                    
-                    <div class="price">
-                        <h3>30k</h3>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <div class="img-item">
-                        <a href="">
-                            <img src="/assets/images/item01.jpg" alt="" class="img-item"> 
-                        </a>
-                    </div>
-
-                    <div class="title">
-                        <h3>Caffe Latte</h3>
-                        <div class="sub">
-                            Fresh brewed coffee and steamed milk
-                        </div>
-                        <div class="end-line"></div>
-                    </div>
-                    
-                    <div class="price">
-                        <h3>30k</h3>
-                    </div>
-
                 </div>
             </div>
         </div>
-         
-        <a class="btn-view-menu btn-view" routerLink="menu">view menu</a>
-   </div>
 
-   <div class="container-shop">
+        <a class="btn-view-menu btn-view" routerLink="menu">view menu</a>
+    </div>
+
+    <div class="container-shop">
         <div class="container-title">
             <p id="sub-title">What Happens Here</p>
             <br>
@@ -359,50 +158,58 @@
             </div>
             <span class="empty-space"></span>
             <br>
-            <div style="width: 200px; height: 2px; background-color: #c7a17a;" ></div>
+            <div style="width: 200px; height: 2px; background-color: #c7a17a;"></div>
         </div>
 
         <div class="shop">
             <div class="shop-item">
                 <img src="/assets/images/shop1.jpg" alt="">
-                <a routerLink="shop"><h3>Paper Pouch</h3></a>
+                <a routerLink="shop">
+                    <h3>Paper Pouch</h3>
+                </a>
                 <div class="price">$46.00</div>
             </div>
 
             <div class="shop-item">
                 <img src="/assets/images/shop2.jpg" alt="">
-                <a routerLink="shop"><h3>Paper Bag</h3></a>
+                <a routerLink="shop">
+                    <h3>Paper Bag</h3>
+                </a>
                 <div class="price">$79.00</div>
             </div>
 
             <div class="shop-item">
                 <img src="/assets/images/shop3.jpg" alt="">
-                <a routerLink="shop"><h3>Plastic Pouch</h3></a>
+                <a routerLink="shop">
+                    <h3>Plastic Pouch</h3>
+                </a>
                 <div class="price">$27.00</div>
             </div>
 
             <div class="shop-item">
                 <img src="/assets/images/shop4.jpg" alt="">
-                <a routerLink="shop"><h3>Coffee Pot</h3></a>
+                <a routerLink="shop">
+                    <h3>Coffee Pot</h3>
+                </a>
                 <div class="price">$71.00</div>
             </div>
         </div>
 
         <a class="btn-view-shop btn-view" routerLink="shop">view shop</a>
-   </div>
+    </div>
 
-   <div class="container-wraper">
+    <div class="container-wraper">
 
-            <img class="wrapper-image image01" src="/assets/images/home-1-gallery-1.jpg" alt="">
-            <img class="wrapper-image image02" src="/assets/images/home-1-gallery-2.jpg" alt="">
-            <img class="wrapper-image image03" src="/assets/images/home-1-gallery-3.jpg" alt="">
-            <img class="wrapper-image image04" src="/assets/images/home-1-gallery-4.jpg" alt="">
-            <img class="wrapper-image image05" src="/assets/images/home-1-gallery-5.jpg" alt="">
-            <img class="wrapper-image image06" src="/assets/images/home-1-gallery-6.jpg" alt="">
-   </div>
+        <img class="wrapper-image image01" src="/assets/images/home-1-gallery-1.jpg" alt="">
+        <img class="wrapper-image image02" src="/assets/images/home-1-gallery-2.jpg" alt="">
+        <img class="wrapper-image image03" src="/assets/images/home-1-gallery-3.jpg" alt="">
+        <img class="wrapper-image image04" src="/assets/images/home-1-gallery-4.jpg" alt="">
+        <img class="wrapper-image image05" src="/assets/images/home-1-gallery-5.jpg" alt="">
+        <img class="wrapper-image image06" src="/assets/images/home-1-gallery-6.jpg" alt="">
+    </div>
 
 
-   <div class="container-blog" id="blogs">
+    <div class="container-blog" id="blogs">
         <div class="container-title">
             <p id="sub-title">What Happens Here</p>
             <br>
@@ -412,22 +219,24 @@
             </div>
             <span class="empty-space"></span>
             <br>
-            <div style="width: 200px; height: 2px; background-color: #c7a17a;" ></div>
+            <div style="width: 200px; height: 2px; background-color: #c7a17a;"></div>
         </div>
 
-        <div class="blog" >
+        <div class="blog">
             <div class="blog-item">
                 <a routerLink="blog">
                     <img src="/assets/images/home-1-blog-f-img-1.jpg" alt="">
                 </a>
-                <a routerLink="blog"><h3>Make it Simple</h3></a>
+                <a routerLink="blog">
+                    <h3>Make it Simple</h3>
+                </a>
 
                 <div class="blog-info">
                     <div class="blog-by">
                         <span>by</span>
                         <a href="">admin</a><span>/</span>
                     </div>
-    
+
                     <div class="blog-category">
                         <span>in</span>
                         <a href="">Coffee</a><span>/</span>
@@ -438,7 +247,9 @@
                     </div>
                 </div>
                 <div class="blog-preview">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere debitis consequatur perspiciatis illo laboriosam nisi modi dignissimos nulla est vero incidunt recusandae odit, suscipit unde vel officiis repellendus.</p>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere debitis
+                        consequatur perspiciatis illo laboriosam nisi modi dignissimos nulla est vero incidunt
+                        recusandae odit, suscipit unde vel officiis repellendus.</p>
                 </div>
 
                 <div class="read-more">
@@ -450,14 +261,16 @@
                 <a routerLink="blog">
                     <img src="/assets/images/home-1-blog-f-img-2.jpg" alt="">
                 </a>
-                <a routerLink="blog"><h3>Coffee Shop</h3></a>
+                <a routerLink="blog">
+                    <h3>Coffee Shop</h3>
+                </a>
 
                 <div class="blog-info">
                     <div class="blog-by">
                         <span>by</span>
                         <a href="">admin</a><span>/</span>
                     </div>
-    
+
                     <div class="blog-category">
                         <span>in</span>
                         <a href="">Coffee</a><span>/</span>
@@ -468,7 +281,9 @@
                     </div>
                 </div>
                 <div class="blog-preview">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere debitis consequatur perspiciatis illo laboriosam nisi modi dignissimos nulla est vero incidunt recusandae odit, suscipit unde vel officiis repellendus.</p>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere debitis
+                        consequatur perspiciatis illo laboriosam nisi modi dignissimos nulla est vero incidunt
+                        recusandae odit, suscipit unde vel officiis repellendus.</p>
                 </div>
 
                 <div class="read-more">
@@ -480,14 +295,16 @@
                 <a routerLink="blog">
                     <img src="/assets/images/home-1-blog-f-img-3.jpg" alt="">
                 </a>
-                <a routerLink="blog"><h3>Coffee Bar</h3></a>
+                <a routerLink="blog">
+                    <h3>Coffee Bar</h3>
+                </a>
 
                 <div class="blog-info">
                     <div class="blog-by">
                         <span>by</span>
                         <a href="">admin</a><span>/</span>
                     </div>
-    
+
                     <div class="blog-category">
                         <span>in</span>
                         <a href="">Coffee</a><span>/</span>
@@ -498,7 +315,9 @@
                     </div>
                 </div>
                 <div class="blog-preview">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere debitis consequatur perspiciatis illo laboriosam nisi modi dignissimos nulla est vero incidunt recusandae odit, suscipit unde vel officiis repellendus.</p>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere debitis
+                        consequatur perspiciatis illo laboriosam nisi modi dignissimos nulla est vero incidunt
+                        recusandae odit, suscipit unde vel officiis repellendus.</p>
                 </div>
 
                 <div class="read-more">
@@ -506,9 +325,9 @@
                 </div>
             </div>
         </div>
-       
-   </div>
- 
+
+    </div>
+
 </div>
 
 <app-footer></app-footer>

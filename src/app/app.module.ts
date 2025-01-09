@@ -4,6 +4,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BaseChartDirective } from 'ng2-charts'; 
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +19,19 @@ import { AdminNavbarComponent } from './admin/admin-navbar/admin-navbar.componen
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { MenuComponent } from './admin/menu/menu.component';
 import { CommonModule } from '@angular/common';
+import { StatisticalComponent } from './admin/statistical/statistical.component';
+import { HomeMenuComponent } from './home-menu/home-menu.component';
+import { RouterModule, Routes } from '@angular/router';
+
+// Định nghĩa các route trong ứng dụng
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'admin', component: AdminComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'statistical', component: StatisticalComponent },
+  // Các route khác của bạn ở đây
+];
 
 @NgModule({
   declarations: [
@@ -29,6 +44,8 @@ import { CommonModule } from '@angular/common';
     AdminNavbarComponent,
     DashboardComponent,
     MenuComponent,
+    StatisticalComponent,
+    HomeMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -37,12 +54,15 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     HttpClientModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BaseChartDirective,
+    
   ],
   providers: [
     // provideClientHydration(withEventReplay()),
     // HttpClient
-    provideHttpClient(withFetch()),
+    provideCharts(withDefaultRegisterables()),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
