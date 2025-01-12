@@ -23,6 +23,8 @@ export class HeaderComponent {
     } else {
       this.logoUrl = '/assets/images/logo-2.png';  // Logo khi ở đầu trang
     }
+
+    console.log("scroll page");
   }
 
 }

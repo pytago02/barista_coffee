@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
   };
   public file: File | null = null;
   editItemData: any = null;
+  public getMenuCategoriesData :any[] = [];
 
   showEditForm(item: any): void {
     this.editItemData = item;
@@ -45,7 +46,7 @@ export class MenuComponent implements OnInit {
     this.addNewItem = null;
   }
 
-  public category_id: number = 0;
+  public category_id: number = -1;
 
   constructor(
     private menuService: MenuService,
@@ -56,46 +57,67 @@ export class MenuComponent implements OnInit {
     this.loadMenu();
   }
 
-  public loadMenu1(): void {
-    this.menuService
-      .getMenu(this.category_id)
-      .pipe(
-        switchMap((res: any) => {
-          let category_ids =
-            res?.data.map((item: any) => item.category_id) || [];
-          category_ids = [...new Set(category_ids)];
-          return this.categoriesService.getByIds(category_ids).pipe(
-            map((res_category: any) => {
-              console.log(res_category);
-              res.data = res.data.map((item: any) => {
-                item['category'] = res_category.data.find(
-                  (item_category: any) =>
-                    item.category_id === item_category.category_id
-                );
-                return item;
-              });
-              return res;
-            })
-          );
-        })
-      )
-      .subscribe((data) => {
-        console.log(data);
+  // public loadMenu1(): void {
+  //   this.menuService
+  //     .getMenu(this.category_id, this.status)
+  //     .pipe(
+  //       switchMap((res: any) => {
+  //         let category_ids =
+  //           res?.data.map((item: any) => item.category_id) || [];
+  //         category_ids = [...new Set(category_ids)];
+  //         return this.categoriesService.getByIds(category_ids).pipe(
+  //           map((res_category: any) => {
+  //             console.log(res_category);
+  //             res.data = res.data.map((item: any) => {
+  //               item['category'] = res_category.data.find(
+  //                 (item_category: any) =>
+  //                   item.category_id === item_category.category_id
+  //               );
+  //               return item;
+  //             });
+  //             return res;
+  //           })
+  //         );
+  //       })
+  //     )
+  //     .subscribe((data) => {
+  //       console.log(data);
 
-        // this.menuItems = data;
-      });
-  }
+  //       // this.menuItems = data;
+  //     });
+  // }
 
   public loadMenu(): void {
-    this.menuService.getMenu(this.category_id).subscribe((data) => {
+    this.menuService.getMenu(this.category_id, this.status).subscribe((data) => {
       this.menuItems = data;
+
+      this.menuService.getMenuCategories().subscribe((data)=>{
+        this.getMenuCategoriesData = data;
+        console.log("getMenuCategoriesData: ", this.getMenuCategoriesData);
+      });
     });
   }
 
   // Cập nhật giá trị category_id khi người dùng chọn một danh mục
-  setId(value: number): void {
+  public setId(value: number): void {
     this.category_id = value;
     this.loadMenu();
+  }
+
+  public status = 1;
+  public setStatus(value: number): void {
+    this.status = value;
+    this.loadMenu();
+  }
+
+  public changeFillMenuCategories(event:any):void{
+    const selectedStatus = +(event.target as HTMLSelectElement).value;
+    this.setId(selectedStatus);
+  }
+
+  public changeFillStatus(event:any):void{
+    const selectedStatus = +(event.target as HTMLSelectElement).value;
+    this.setStatus(selectedStatus);
   }
 
   public onChangeImage(event: any): void {
@@ -106,6 +128,13 @@ export class MenuComponent implements OnInit {
     console.log(this.file);
   }
 
+  // them moi item
+
+  public selectCategori(event:any):void{
+    const selectedStatus = +(event.target as HTMLSelectElement).value;
+    this.newItem.category_id = selectedStatus;
+    console.log("newItem.category_id: ",this.newItem.category_id)
+  }
   addItem(): void {
     if(confirm("xác nhận tạo món")){
       if (this.file && this.newItem) {

@@ -6,6 +6,9 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
 import { ReactiveFormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts'; 
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import {MatSliderModule} from '@angular/material/slider';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +25,7 @@ import { CommonModule } from '@angular/common';
 import { StatisticalComponent } from './admin/statistical/statistical.component';
 import { HomeMenuComponent } from './home-menu/home-menu.component';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeShopComponent } from './home-shop/home-shop.component';
 
 // Định nghĩa các route trong ứng dụng
 const routes: Routes = [
@@ -45,7 +49,8 @@ const routes: Routes = [
     DashboardComponent,
     MenuComponent,
     StatisticalComponent,
-    HomeMenuComponent
+    HomeMenuComponent,
+    HomeShopComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,7 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     BaseChartDirective,
-    
+    MatSliderModule,
   ],
   providers: [
     // provideClientHydration(withEventReplay()),

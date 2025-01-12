@@ -34,6 +34,29 @@ body {
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
+    text-align: center;
+}
+
+.menu .navFill{
+    display: flex;
+}
+
+ .navFill .fill{
+    margin: 0 10px;
+}
+
+select {
+    margin-top: 5px;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+select:focus {
+    border-color: #007bff;
 }
 
 .btn-list-menu {
@@ -100,6 +123,7 @@ body {
 /* Nút hành động */
 .btn-edit,
 .btn-delete {
+    margin: 0 5px;
     padding: 5px 10px;
     font-size: 14px;
     border-radius: 5px;
@@ -237,3 +261,6 @@ form button[type="submit"]:hover {
         width: 90%;
     }
 }
+
+
+

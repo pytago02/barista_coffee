@@ -9,6 +9,7 @@
     padding: 0 20px;
     padding-top: 20px;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    font-family: Oswald, sans-serif;
 }
 
 /* Logo section */
@@ -20,9 +21,8 @@
 }
 
 .logo img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+    height: 40px; 
+    /* border-radius: 50%; */
     margin-bottom: 10px;
     object-fit: cover;
 }
@@ -79,6 +79,7 @@
     color: #dc3545;
     text-decoration: none;
     font-size: 16px;
+    font-weight: 700;
     padding: 10px 20px;
     border: 2px solid #dc3545;
     border-radius: 5px;

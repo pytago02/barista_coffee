@@ -47,8 +47,8 @@ export class MenuService {
   }
   */
 
-  public getMenu(category_id: number): Observable<any[]> {
-    const api = `http://localhost/angular-api/getMenu.php?category_id=${category_id}`;
+  public getMenu(category_id: number, status:number): Observable<any[]> {
+    const api = `http://localhost/angular-api/getMenu.php?category_id=${category_id}&status=${status}`;
     return this.http.get<any[]>(api);
   }
 
@@ -67,6 +67,16 @@ export class MenuService {
   public updateMenuItem(item: any): Observable<any> {
     const url = `http://localhost/angular-api/updateItemMenu.php`;
     return this.http.put<any>(url, item);
+  }
+
+  public getMenuCategories(): Observable<any[]> {
+    const api = `http://localhost/angular-api/getMenuCategories.php`;
+    return this.http.get<any[]>(api);
+  }
+
+  public getMenuItem(category_id: number, status:number, min:any, max:any, keyword:string){
+    const api = `http://localhost/angular-api/getShops.php?category_id=${category_id}&status=${status}&min=${min}&max=${max}&keyword=${keyword}`;
+    return this.http.get<any[]>(api);
   }
 
 

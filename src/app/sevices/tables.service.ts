@@ -36,5 +36,10 @@ export class TablesService {
     return this.http.put<any>(url, item);
   }
 
+  public deleteTables(table_id: number): Observable<any> {
+    const url = `http://localhost/angular-api/deleteTables.php?table_id=${table_id}`;
+    return this.http.delete<any>(url);
+  }
+
   
 }

@@ -1,17 +1,36 @@
 <div class="main">
 
     <!-- NodeJS, express, knexjs, multer -->
-     <!-- interceptor -->
+    <!-- interceptor -->
     <!-- <app-admin-navbar></app-admin-navbar> -->
 
     <div class="container">
         <div class="menu">
             <h2>Menu</h2>
-            <button class="btn-add btn-list-menu" (click)="showAddForm(addNewItem)">Thêm món</button>
-            <button class="btn-list-menu" (click)="setId(0)"  >tất cả</button>
-            <button class="btn-list-menu" (click)="setId(1)" >đồ uống</button>
-            <button class="btn-list-menu" (click)="setId(2)" >Khai vị</button>
-            <button class="btn-list-menu" (click)="setId(3)" >Món chính</button>
+            <div class="navFill">
+                <button class="btn-add btn-list-menu" (click)="showAddForm(addNewItem)">Thêm món</button>
+                <!-- <button class="btn-list-menu" (click)="setId(0)">tất cả</button>
+                <button class="btn-list-menu" (click)="setId(1)">đồ uống</button>
+                <button class="btn-list-menu" (click)="setId(2)">Khai vị</button>
+                <button class="btn-list-menu" (click)="setId(3)">Món chính</button> -->
+
+                <div class="fill">
+                    Danh mục:
+                    <select (change)="changeFillMenuCategories($event)" [(ngModel)]="category_id">
+                        <option [value]="-1">Tất cả</option>
+                        <option *ngFor="let item of getMenuCategoriesData" value="{{item.category_id}}">{{item.name}}</option>
+                    </select>
+                </div>
+
+                <div class="fill">
+                    trạng thái:
+                    <select (change)="changeFillStatus($event)" [(ngModel)]="status">
+                        <option [value]="-1">Tất cả</option>
+                        <option [value]="1">Sẵn sàng</option>
+                        <option [value]="0">Hết</option>
+                    </select>
+                </div>
+            </div>
 
             <table class="all-menu">
                 <thead>
@@ -27,11 +46,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of menuItems">
-                        <td  style="padding: 0; margin: 0;"><img id="imgItem" [src]="baseUrl + item.img" alt=""></td>
+                        <td style="padding: 0; margin: 0;"><img id="imgItem" [src]="baseUrl + item.img" alt=""></td>
                         <td>{{ item.name }}</td>
                         <td>
                             {{ item.category_id === '1' ? 'Đồ uống' : (item.category_id === '2' ? 'Khai vị' :
-                            (item.category_id === '3' ? 'Món chính' : 'Không xác định')) }}
+                            (item.category_id === '3' ? 'Món chính' : 'shop')) }}
                         </td>
 
                         <td>{{ item.price | currency }}</td>
@@ -40,6 +59,7 @@
                         <td>
                             <button class="btn-edit" (click)="editItem(item)">Sửa</button>
                             <button class="btn-delete" (click)="deleteItem(item.item_id)">xoá</button>
+                            
                         </td>
                         <!-- <td><button (click)="editItem(item)">Edit</button></td> -->
 
@@ -50,43 +70,40 @@
 
         <!-- Form thêm mới item -->
         <div class="add-item-form" *ngIf="addNewItem">
-            <h3>Add New Item</h3>
-            <form (ngSubmit)="addItem()" >
+            <h3>Thêm sản phẩm mới</h3>
+            <form (ngSubmit)="addItem()">
                 <label>
-                    Name:
+                    Tên:
                     <input type="text" [(ngModel)]="newItem.name" name="name" required />
                 </label>
                 <label>
-                    Category ID:
-                    <!-- <input type="number" [(ngModel)]="newItem.category_id" name="category_id" required /> -->
-                    <select [(ngModel)]="newItem.category_id" name="category_id">
-                        <option [value]="1">Đồ uống</option>
-                        <option [value]="2">Khai vị</option>
-                        <option [value]="3">Món chính</option>
+                    Danh mục:
+                    <select (change)="selectCategori($event)" [(ngModel)]="newItem.category_id" name="category_id">
+                        <option *ngFor="let item of getMenuCategoriesData" value="{{item.category_id}}">{{item.name}}</option>
                     </select>
                 </label>
                 <label>
-                    Price:
+                    Giá tiền:
                     <input type="number" [(ngModel)]="newItem.price" name="price" required />
                 </label>
                 <label>
-                    Description:
+                    Mô tả:
                     <input type="text" [(ngModel)]="newItem.description" name="description" />
                 </label>
                 <label>
-                    Availability:
+                    Trạng thái:
                     <select [(ngModel)]="newItem.availability" name="availability">
                         <option [value]="1">Available</option>
                         <option [value]="0">Out of Stock</option>
                     </select>
                 </label>
                 <label>
-                    Image:
+                    Hinh ảnh:
                     <input type="file" (change)="onChangeImage($event)" [(ngModel)]="newItem.img" name="img" required>
                 </label>
                 <div class="btn">
-                    <button type="submit">Add Item</button>
-                    <button type="button" class="btn-cancel-add" (click)="hideAddForm()">Cancel</button>
+                    <button type="submit">Thêm</button>
+                    <button type="button" class="btn-cancel-add" (click)="hideAddForm()">Huỷ</button>
                 </div>
             </form>
         </div>
@@ -113,7 +130,7 @@
                     <option [value]="1">Available</option>
                     <option [value]="0">Out of Stock</option>
                 </select>
-                
+
                 <label for="image">Image</label>
                 <input type="file" (change)="onChangeImage($event)" [(ngModel)]="newItem.img" name="img" required>
 

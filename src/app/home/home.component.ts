@@ -10,7 +10,12 @@ import { MenuService } from '../sevices/menu.service';
 })
 export class HomeComponent implements OnInit{
 public loadMenuData :any[] = [];
+public getMenuShopData: any[] = [];
 public baseUrl = 'http://localhost/angular-api/';
+
+categori_idAll = -1 // -1 là lấy tất cả sản phẩm ở các danh mục
+categori_idShop = 4
+status = 1 // 1 là lấy trạng thái sẵn có
 constructor(private menuService : MenuService){}
 
 ngOnInit(): void {
@@ -18,9 +23,14 @@ ngOnInit(): void {
 }
 
 public loadMenu(){
-  this.menuService.getMenu(0).subscribe((data)=>{
+  this.menuService.getMenu(this.categori_idAll, this.status).subscribe((data)=>{
     this.loadMenuData = data;
     console.log(this.loadMenuData);
+  });
+
+  this.menuService.getMenu(this.categori_idShop, this.status).subscribe((data)=>{
+    this.getMenuShopData = data;
+    console.log(this.getMenuShopData);
   });
 }
 }

@@ -10,13 +10,13 @@
 
             <div class="nav">
                 <div class="fill">
-                    <label for="">
+                    <!-- <label for="">
                         tầng
                         <select name="floor" (change)="onFloorSelected($event)" [(ngModel)]="floor">
                             <option [value]="-1">All</option>
                             <option *ngFor="let item of floors" [value]="item.floor">{{item.floor}}</option>
                         </select>
-                    </label>
+                    </label> -->
 
                     <label for="">
                         trạng thái
@@ -37,7 +37,7 @@
             </div>
 
             <div class="show"></div>
-            <table class="all-menu">
+            <table class="all-menu" *ngIf="false">
                 <thead>
                     <tr>
                         <th>tên</th>
@@ -80,7 +80,7 @@
                     <select [(ngModel)]="newItem.floor" name="floor">
                         <option [value]="1">Tầng 1</option>
                         <option [value]="2">Tầng 2</option>
-                        <option [value]="2">Tầng 3</option>
+                        <option [value]="3">Tầng 3</option>
                     </select>
                 </label>
                 <label>
@@ -121,8 +121,14 @@
                     name="qr_code" required>
 
                 <div class="btn">
-                    <button type="submit">Lưu</button>
-                    <button type="button" (click)="editItemData = null" class="btn-cancel-edit">huỷ</button>
+                    <div class="">
+                        <button class="btnDeleteTables" type="button" (click)="deleteTables()" >Xoá bàn</button>
+                    </div>
+
+                    <div class="btnEditTables">
+                        <button type="submit">Lưu</button>
+                        <button type="button" (click)="editItemData = null" class="btn-cancel-edit">huỷ</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -132,10 +138,18 @@
         <div class="viewTable" *ngIf="viewTableData">
             <div class="menu">
                 <div class="nav">
-                    <button class="btn-list-menu" (click)="setId(0)">Tất cả</button>
+                    <!-- <button class="btn-list-menu" (click)="setId(0)">Tất cả</button>
                     <button class="btn-list-menu" (click)="setId(1)">đồ uống</button>
                     <button class="btn-list-menu" (click)="setId(2)">Khai vị</button>
-                    <button class="btn-list-menu" (click)="setId(3)">Món chính</button>
+                    <button class="btn-list-menu" (click)="setId(3)">Món chính</button> -->
+
+                    <div class="fill-menu">
+                        <select (change)="changeFillMenuCategories($event)" [(ngModel)]="category_id">
+                            <option [value]="-1">Tất cả</option>
+                            <option *ngFor="let item of getMenuCategoriesData" value="{{item.category_id}}">
+                                {{item.name}}</option>
+                        </select>
+                    </div>
                 </div>
                 <table>
                     <thead>
@@ -145,16 +159,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of menu">
+                        <tr *ngFor="let item of paginatedMenu">
                             <td (click)="selectedOder(item)">{{ item.name }}</td>
                             <td (click)="selectedOder(item)">{{ item.price | currency }}</td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="space"></div>
+                <div class="pagination">
+                    <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+                    <span>Page {{ currentPage }} of {{ pageCount }}</span>
+                    <button (click)="nextPage()" [disabled]="currentPage === pageCount">Next</button>
+                </div>
             </div>
 
             <div class="infoTable">
-                <h3> Chi tiết: {{viewTableData.name}}</h3>   
+                <h3> Chi tiết: {{viewTableData.name}}</h3>
                 <span>Tầng {{viewTableData.floor}}</span>
 
                 <div class="oderItem">
@@ -242,6 +262,68 @@
         </div>
         <!-- payment form END-->
 
+        <h2>Tầng 01</h2>
+        <div class="tables-floor1 tables">
+            <div class="table" *ngFor="let item of tables">
+                <button (click)="viewTable(item)" (contextmenu)="editItem(item); onContextMenu($event)"
+                    class="button-view-table" [ngClass]="{
+                    'status-empty': item.status === '0',
+                    'status-serving': item.status === '1',
+                    'status-repair': item.status === '2',
+                    'status-unknown': item.status !== '0' && item.status !== '1' && item.status !== '2'
+                }">
+                    <span>Tầng: {{item.floor}}</span>
+                    <h3>{{item.name}}</h3>
+                    <h4>{{ item.status === '0' ? 'Đang trống' : (item.status === '1' ? 'Đang phục vụ' :(item.status ===
+                        '2' ? 'Sửa chữa' : 'Không xác định')) }}</h4>
+                </button>
+            </div>
+
+        </div>
+        <div class="container-endline">
+            <div class="endline"> </div>
+        </div>
+
+        <h2>Tầng 02</h2>
+        <div class="tables-floor2 tables">
+            <div class="table" *ngFor="let item of tablesFloor2">
+                <button (click)="viewTable(item)" (contextmenu)="editItem(item); onContextMenu($event)"
+                    class="button-view-table" [ngClass]="{
+                    'status-empty': item.status === '0',
+                    'status-serving': item.status === '1',
+                    'status-repair': item.status === '2',
+                    'status-unknown': item.status !== '0' && item.status !== '1' && item.status !== '2'
+                }">
+                    <span>Tầng: {{item.floor}}</span>
+                    <h3>{{item.name}}</h3>
+                    <h4>{{ item.status === '0' ? 'Đang trống' : (item.status === '1' ? 'Đang phục vụ' :(item.status ===
+                        '2' ? 'Sửa chữa' : 'Không xác định')) }}</h4>
+                </button>
+            </div>
+
+        </div>
+        <div class="container-endline">
+            <div class="endline"> </div>
+        </div>
+
+        <h2>Tầng 03</h2>
+        <div class="tables-floor3 tables">
+            <div class="table" *ngFor="let item of tablesFloor3">
+                <button (click)="viewTable(item)" (contextmenu)="editItem(item); onContextMenu($event)"
+                    class="button-view-table" [ngClass]="{
+                    'status-empty': item.status === '0',
+                    'status-serving': item.status === '1',
+                    'status-repair': item.status === '2',
+                    'status-unknown': item.status !== '0' && item.status !== '1' && item.status !== '2'
+                }">
+                    <span>Tầng: {{item.floor}}</span>
+                    <h3>{{item.name}}</h3>
+                    <h4>{{ item.status === '0' ? 'Đang trống' : (item.status === '1' ? 'Đang phục vụ' :(item.status ===
+                        '2' ? 'Sửa chữa' : 'Không xác định')) }}</h4>
+                </button>
+            </div>
+
+        </div>
 
 
     </div>

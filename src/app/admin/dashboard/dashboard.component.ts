@@ -22,6 +22,8 @@ import { PaymentService } from '../../sevices/payment.service';
 })
 export class DashboardComponent implements OnInit {
   public tables: any[] = [];
+  public tablesFloor2: any[] = [];
+  public tablesFloor3: any[] = [];
   public floors: any[] = [];
   public statuss: any[] = [];
   public floor: number = -1;
@@ -37,9 +39,11 @@ export class DashboardComponent implements OnInit {
   public editItemData: any = null;
   public viewTableData: any = null;
   public menu: any[] = [];
-  private category_id = 0;
+  public category_id:number = -1;
   public baseUrl = 'http://localhost/angular-api/';
   public itemOderSelected: any = null;
+  public getMenuCategoriesData :any[] = [];
+  
 
   // Số lượng và tổng tiền cho món ăn được chọn
   public soluongOder: number = 1; // Số lượng mặc định là 1
@@ -79,26 +83,59 @@ export class DashboardComponent implements OnInit {
     this.setStatus(selectedStatus);
   }
 
+  public changeFillMenuCategories(event:any):void{
+    const selectedStatus = +(event.target as HTMLSelectElement).value;
+    this.setId(selectedStatus);
+  }
+
   public loadTables(): void {
-    this.tablesService.getTables(this.floor, this.status).subscribe((data) => {
+    this.tablesService.getTables(1, this.status).subscribe((data) => {
       this.tables = data;
-      // console.log(this.tables);
+
+      this.tablesService.getFloors().subscribe((data) => {
+        this.floors = data;
+
+        this.tablesService.getStatuss().subscribe((data) => {
+          this.statuss = data;
+        });
+      });
     });
 
-    this.tablesService.getFloors().subscribe((data) => {
-      this.floors = data;
-      // console.log(this.floors);
+    this.tablesService.getTables(2, this.status).subscribe((data) => {
+      this.tablesFloor2 = data;
+
+      this.tablesService.getFloors().subscribe((data) => {
+        this.floors = data;
+
+        this.tablesService.getStatuss().subscribe((data) => {
+          this.statuss = data;
+        });
+      });
     });
 
-    this.tablesService.getStatuss().subscribe((data) => {
-      this.statuss = data;
-      // console.log(this.statuss);
+    this.tablesService.getTables(3, this.status).subscribe((data) => {
+      this.tablesFloor3 = data;
+
+      this.tablesService.getFloors().subscribe((data) => {
+        this.floors = data;
+
+        this.tablesService.getStatuss().subscribe((data) => {
+          this.statuss = data;
+        });
+      });
     });
+
+    
   }
 
   public loadMenu(): void {
-    this.menuService.getMenu(this.category_id).subscribe((data) => {
+    this.menuService.getMenu(this.category_id, 1).subscribe((data) => {
       this.menu = data;
+
+      this.menuService.getMenuCategories().subscribe((data)=>{
+        this.getMenuCategoriesData = data;
+        console.log("getMenuCategoriesData: ", this.getMenuCategoriesData);
+      });
     });
   }
 
@@ -142,7 +179,7 @@ export class DashboardComponent implements OnInit {
           console.log(formData.get);
         },
       });
-    } else console.log('Khong dien du thong tin');
+    } else alert("Vui lòng điền đủ thông tin");
   }
 
   public resetForm(): void {
@@ -150,6 +187,11 @@ export class DashboardComponent implements OnInit {
     this.newItem.floor = 1;
     this.newItem.status = 0;
     this.newItem.qr_code = '';
+  }
+
+  onContextMenu(event: MouseEvent) {
+    event.preventDefault(); // Ngăn không cho menu chuột phải hiển thị
+    console.log('Right-click detected!');
   }
 
   // Chỉnh sửa item
@@ -208,11 +250,58 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  public deleteTables():void{
+    if(confirm("Xác nhận xoá bàn này.")){
+      this.tablesService.deleteTables(this.editItemData.table_id).subscribe({
+        next: (response)=>{
+          this.editItemData = null;
+          this.loadTables();
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Failed to update item:', error.message);
+        },
+      });
+    }
+  }
+
   public viewTable(item: any): void {
     this.viewTableData = { ...item };
     this.loadOder();
     // console.log(this.viewTableData);
   }
+
+  // phân trang
+  currentPage = 1;
+  itemsPerPage = 10;
+    // Get the items for the current page
+    get paginatedMenu() {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      return this.menu.slice(startIndex, startIndex + this.itemsPerPage);
+    }
+  
+    // Navigate to the next page
+    nextPage() {
+      if (this.currentPage < this.pageCount) {
+        this.currentPage++;
+      }
+    }
+  
+    // Navigate to the previous page
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    }
+  
+    // Get the total number of pages
+    get pageCount() {
+      return Math.ceil(this.menu.length / this.itemsPerPage);
+    }
+  
+    // Select order item (custom logic as needed)
+    selectedOrder(item: any) {
+      console.log('Selected item:', item);
+    }
 
   setId(value: number): void {
     this.category_id = value;
@@ -231,6 +320,7 @@ export class DashboardComponent implements OnInit {
       this.itemOderSelected.table_id = this.orderData[0].table_id;
       this.itemOderSelected.total_amount = this.total_amount;
       console.log('Đặt hàng:', this.itemOderSelected);
+      console.log("orderData", this.orderData);
 
       this.ordersService.addOrderDetail(this.itemOderSelected).subscribe({
         next: (response) => {
@@ -269,7 +359,7 @@ export class DashboardComponent implements OnInit {
       .getOder(this.viewTableData.table_id)
       .subscribe((data) => {
         this.orderData = data;
-        // console.log('Order View Table', this.orderData);
+        console.log('viewTableData', this.orderData);
       });
   }
 

@@ -1,0 +1,275 @@
+
+
+* {
+    font-family: Oswald, sans-serif;
+    font-weight: 400;
+    
+}
+
+ul,
+li {
+    text-decoration: none;
+    list-style: none;
+}
+
+h2 {
+    font-size: 35px;
+    letter-spacing: 1px;
+    line-height: 1.14286em;
+    font-family: Oswald, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+h3 {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.top-title-menu,
+.banner {
+    background-image: url("/assets/images/Team-title-area-parallax-img-2.jpg");
+    height: 410px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.top-title-menu span {
+    font-size: 33px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: aliceblue;
+    line-height: 100%;
+}
+
+.container-menu01,
+.container-menu {
+    margin: 0;
+    min-height: 500px;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 70px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.menu-title {
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+
+.menu-title h2 {
+    text-align: center;
+    color: #30271c;
+}
+
+
+.menu-title .line {
+    text-align: center;
+    background-color: #30271c;
+    height: 2px;
+    width: 100%;
+    margin: 0;
+}
+
+.menu {
+    display: flex;
+    width: 80%;
+}
+
+.menu p {
+    color: #c7a17a;
+    font-family: Merriweather, serif;
+    font-style: italic;
+    margin-left: 56px;
+}
+
+
+.menu .left-menu {
+    width: 70%;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 20px;
+}
+
+.menu .left-menu .menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    width: 100%;
+}
+
+.menu .left-menu .menu-item {
+    width: 30%;
+    margin: 10px;
+}
+
+.menu .left-menu .menu-item img {
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+.menu .left-menu .menu-item img:hover {
+    filter: brightness(0.8);
+    transition: all 0.5s ease;
+
+}
+
+.menu .left-menu .menu-item h3 {
+    display: inline;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.menu .left-menu .menu-item h3:hover {
+    color: #c7a17a;
+    transition: color 0.3s ease;
+}
+
+.menu .left-menu .menu-item span {
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    font-family: Merriweather, serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #c7a17a;
+}
+
+.menu .right-menu {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-top: 40px;
+
+}
+
+.menu .right-menu .titleFilter {
+    display: flex;
+    align-items: last baseline;
+    margin-bottom: 20px;
+}
+
+.menu .right-menu .titleFilter h3 {
+    margin: 0;
+    padding-bottom: 5px;
+}
+
+.line {
+    height: 3px;
+    width: 50%;
+    background-color: #ac7a49;
+    margin-left: 20px;
+}
+
+.menu .right-menu .inputFilter {
+    display: flex;
+    /* margin-bottom: 25px; */
+}
+
+.menu .right-menu .inputFilter input {
+    width: 80%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.menu .right-menu .inputFilter input:hover {
+    border-color: #c7a17a;
+    box-shadow: 0 0 8px rgba(172, 122, 73, 0.5);
+    transition: all 0.3s ease;
+}
+
+.menu .right-menu .inputFilter button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #c7a17a;
+}
+
+.menu .right-menu .inputFilter button:hover {
+    transition: all 0.3s ease;
+    background-color: #ac7a49;
+}
+
+.inputSearch {
+    width: 80%;
+    display: flex;
+    justify-items: center;
+    justify-content: space-between;
+}
+
+
+.inputSearch i {
+    right: 10px;
+    font-size: 24px;
+    color: #ac7a49;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.inputSearch i:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+
+.menu .right-menu .inputSearch input {
+    width: 80%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.menu .right-menu .inputSearch input:hover {
+    border-color: #c7a17a;
+    box-shadow: 0 0 8px rgba(172, 122, 73, 0.5);
+    transition: all 0.3s ease;
+}
+
+.menu .right-menu .btnResetFilter {
+    width: 60px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #c7a17a;
+}
+
+.menu .right-menu .btnResetFilter:hover {
+    transition: all 0.3s ease;
+    background-color: #ac7a49;
+}
+
+mat-slider {
+    width: 300px;
+    color: #ac7a49;
+}
+
+
+

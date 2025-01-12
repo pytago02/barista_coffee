@@ -98,11 +98,11 @@
                 <div class="menu-item" *ngFor="let item of loadMenuData | slice:0:5">
                     <div class="item">
                         <div class="img-item">
-                            <a [routerLink]="['/home-menu']" [fragment]="'drinks'">
+                            <a [routerLink]="['/home-menu']">
                                 <img [src]="baseUrl + item.img" alt="" class="img-item">
                             </a>
                         </div>
-    
+
                         <div class="title">
                             <h3>{{item.name}}</h3>
                             <div class="sub">
@@ -110,11 +110,11 @@
                             </div>
                             <div class="end-line"></div>
                         </div>
-    
+
                         <div class="price">
                             <h3>{{item.price | currency}}</h3>
                         </div>
-    
+
                     </div>
                 </div>
             </div>
@@ -123,11 +123,11 @@
                 <div class="menu-item" *ngFor="let item of loadMenuData | slice:5:10">
                     <div class="item">
                         <div class="img-item">
-                            <a [routerLink]="['/home-menu']" [fragment]="'drinks'">
+                            <a [routerLink]="['/home-menu']">
                                 <img [src]="baseUrl + item.img" alt="" class="img-item">
                             </a>
                         </div>
-    
+
                         <div class="title">
                             <h3>{{item.name}}</h3>
                             <div class="sub">
@@ -135,11 +135,11 @@
                             </div>
                             <div class="end-line"></div>
                         </div>
-    
+
                         <div class="price">
                             <h3>{{item.price | currency}}</h3>
                         </div>
-    
+
                     </div>
                 </div>
             </div>
@@ -162,39 +162,16 @@
         </div>
 
         <div class="shop">
-            <div class="shop-item">
-                <img src="/assets/images/shop1.jpg" alt="">
+            <div class="shop-item" *ngFor="let item of getMenuShopData  | slice:0:5">
+                <img [src]="baseUrl + item.img" alt="">
                 <a routerLink="shop">
-                    <h3>Paper Pouch</h3>
+                    <h3>{{item.name}}</h3>
                 </a>
-                <div class="price">$46.00</div>
+                <div class="price">{{item.price | currency}}</div>
             </div>
 
-            <div class="shop-item">
-                <img src="/assets/images/shop2.jpg" alt="">
-                <a routerLink="shop">
-                    <h3>Paper Bag</h3>
-                </a>
-                <div class="price">$79.00</div>
-            </div>
-
-            <div class="shop-item">
-                <img src="/assets/images/shop3.jpg" alt="">
-                <a routerLink="shop">
-                    <h3>Plastic Pouch</h3>
-                </a>
-                <div class="price">$27.00</div>
-            </div>
-
-            <div class="shop-item">
-                <img src="/assets/images/shop4.jpg" alt="">
-                <a routerLink="shop">
-                    <h3>Coffee Pot</h3>
-                </a>
-                <div class="price">$71.00</div>
-            </div>
+            
         </div>
-
         <a class="btn-view-shop btn-view" routerLink="shop">view shop</a>
     </div>
 
@@ -247,7 +224,8 @@
                     </div>
                 </div>
                 <div class="blog-preview">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere debitis
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere
+                        debitis
                         consequatur perspiciatis illo laboriosam nisi modi dignissimos nulla est vero incidunt
                         recusandae odit, suscipit unde vel officiis repellendus.</p>
                 </div>
@@ -281,7 +259,8 @@
                     </div>
                 </div>
                 <div class="blog-preview">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere debitis
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere
+                        debitis
                         consequatur perspiciatis illo laboriosam nisi modi dignissimos nulla est vero incidunt
                         recusandae odit, suscipit unde vel officiis repellendus.</p>
                 </div>
@@ -315,7 +294,8 @@
                     </div>
                 </div>
                 <div class="blog-preview">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere debitis
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sapiente facere
+                        debitis
                         consequatur perspiciatis illo laboriosam nisi modi dignissimos nulla est vero incidunt
                         recusandae odit, suscipit unde vel officiis repellendus.</p>
                 </div>

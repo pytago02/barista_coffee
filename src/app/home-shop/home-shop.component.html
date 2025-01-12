@@ -1,0 +1,94 @@
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primeng/14.0.0/primeng.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primeicons/6.0.0/primeicons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/primeng/14.0.0/themes/aura/theme.css"> -->
+
+
+<app-header></app-header>
+<div class="main">
+    <div class="top-title-menu banner">
+        <span>our shop</span>
+    </div>
+
+    <div class="container-menu01 container-menu" id="drinks">
+        <div class="menu-title">
+            <h2>barista shop</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="menu">
+
+            <div class="menus left-menu">
+                <p>Showing all {{loadMenuDataProducts.length}} results</p>
+                <ul class="menu-items">
+                    <li class="menu-item" *ngFor="let item of loadMenuDataProducts | slice:0:999">
+                        <div class="item">
+                            <div class="img-item">
+                                <a href="#">
+                                    <img [src]="baseUrl + item.img" alt="" class="img-item">
+                                </a>
+                            </div>
+
+                            <div class="title">
+                                <h3>{{item.name}}</h3>
+                            </div>
+
+                            <div class="price">
+                                <span>{{item.price | currency}}</span>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="menus right-menu">
+                <div class="titleFilter">
+                    <h3>FILTER</h3>
+                    <div class="line"></div>
+                </div>
+
+                <div class="inputFilter">
+                    <div class="min">
+                        <label for="minFill"></label>
+                        <input type="text" name="minFill" placeholder="min" [(ngModel)]="inputFilterMin">
+                    </div>
+
+                    <div class="max">
+                        <label for="maxFill"></label>
+                        <input type="text" name="maxFill" placeholder="max" [(ngModel)]="inputFilterMax">
+                    </div>
+
+                    <button (click)="loadMenu()">Filter</button>
+                </div>
+
+                <mat-slider min="0" max="100">
+                    <input value="0" matSliderStartThumb [(ngModel)]="inputFilterMin" tickInterval="50">
+                    <input value="100" matSliderEndThumb [(ngModel)]="inputFilterMax">
+                </mat-slider>
+
+
+                <div class="titleFilter">
+                    <h3>search</h3>
+                    <div class="line"></div>
+                </div>
+
+                <div class="search">
+                    <div class="inputSearch">
+                        <input type="text" placeholder="key word" [(ngModel)]="inputSearch">
+                        <i class="fa-solid fa-magnifying-glass" (click)="loadMenu()"></i>
+                    </div>
+
+                </div>
+
+                <button class="btnResetFilter" (click)="resetFilter()">reset</button>
+
+                
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<app-footer></app-footer>

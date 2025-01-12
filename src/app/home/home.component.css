@@ -7,12 +7,14 @@
     box-sizing: border-box;
     text-transform: capitalize;
     list-style: none;
+    transition: all 0.3s ease;
 }
 
 h1,
 h2,
 h3 {
     text-transform: uppercase;
+    
 }
 
 p{
@@ -252,7 +254,12 @@ h3 {
 
 .shop-item img{
     width: 100%;
-    
+    transition: all 0.3s ease;
+}
+
+.shop-item img:hover{
+    scale: 1.05;
+    transition: all 0.3s ease;
 }
 
 .shop-item h3{
@@ -351,13 +358,19 @@ h3 {
     margin: 0 20px;
 }
 
+.blog-item:hover{
+    scale: 1.03;
+}
+
 .blog-item img{
     width: 100%;
 }
 
+
 .blog-item h3{
     color: #2f2d2b;
     margin: 10px 0;
+    display: inline;
 }
 
 .blog-item h3:hover{

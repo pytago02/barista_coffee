@@ -1,6 +1,10 @@
 /* Đặt cấu trúc cơ bản */
+* {
+    font-family: Oswald, sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: Oswald, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f9;
@@ -30,6 +34,7 @@ button {
 /* Container chính */
 .container {
     width: 100%;
+    min-height: 700px;
     /* max-width: 1200px; */
     background: #ffffff;
     border-radius: 10px;
@@ -44,6 +49,7 @@ button {
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .nav {
@@ -80,6 +86,20 @@ label select:focus {
     border-color: #007bff;
 }
 
+select {
+    margin-top: 5px;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+select:focus {
+    border-color: #007bff;
+}
+
 /* Bảng */
 .all-menu {
     width: 100%;
@@ -110,6 +130,7 @@ label select:focus {
 }
 
 /* Các nút */
+
 .btn-edit,
 .btn-delete {
     /* padding: 5px 10px;
@@ -320,7 +341,7 @@ label select:focus {
 /* Nút bấm */
 .edit-form .btn {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 10px;
 }
 
@@ -352,6 +373,15 @@ button[type="submit"]:hover {
 
 .edit-form .btn-cancel-edit:hover,
 .btn-cancel-edit:hover {
+    background-color: #c82333;
+}
+
+.edit-form .btnDeleteTables {
+    background-color: #dc3545;
+    color: white;
+}
+
+.edit-form .btnDeleteTables:hover {
     background-color: #c82333;
 }
 
@@ -403,11 +433,14 @@ button[type="submit"]:hover {
 /* Menu bên trái */
 .viewTable .menu {
     width: 40%;
+    min-height: 600px;
     background: #f8f9fa;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .viewTable .menu .nav {
@@ -421,8 +454,16 @@ button[type="submit"]:hover {
 
 .viewTable .menu table {
     width: 100%;
+    /* min-height: 500px; */
     border-collapse: collapse;
 }
+
+.viewTable .menu .space {
+    display: flex;
+    flex: 1;
+}
+
+
 
 .viewTable .menu table th,
 .viewTable .menu table td {
@@ -457,7 +498,7 @@ button[type="submit"]:hover {
 .viewTable .infoTable {
     position: relative;
     width: 55%;
-    min-height: 550px;
+    min-height: 600px;
     background: #f8f9fa;
     padding: 15px;
     border-radius: 10px;
@@ -481,7 +522,7 @@ button[type="submit"]:hover {
 
 .viewTable .infoTable .oderItem {
     width: 100%;
-    min-height: 200px;
+    min-height: 325px;
     background: #e9ecef;
     border-radius: 10px;
     margin-bottom: 20px;
@@ -731,3 +772,101 @@ button[type="submit"]:hover {
 
 
 /* Payment form END */
+
+/* Tổng thể bảng */
+.tables {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Nút hiển thị bảng */
+.button-view-table {
+    width: 200px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: var(--color01);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.button-view-table h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color04);
+    margin-top: 10px;
+}
+
+.button-view-table h3 {
+    font-size: 26px;
+    margin: 0;
+    font-weight: bold;
+    color: var(--color04);
+}
+
+.button-view-table span {
+    font-size: 14px;
+    color: var(--color04);
+}
+
+/* Nút trạng thái */
+.button-view-table.status-empty {
+    background-color: var(--color01);
+    color: var(--color04);
+}
+
+.button-view-table.status-serving {
+    background-color: var(--color03);
+    color: var(--color04);
+}
+
+.button-view-table.status-repair {
+    background-color: #c24d59;
+}
+
+/* Hiệu ứng hover cho tất cả trạng thái */
+.button-view-table:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.button-view-table:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .button-view-table {
+        width: 100%;
+        height: auto;
+    }
+
+    .table {
+        flex-direction: column;
+    }
+}
+
+.container-endline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.endline {
+    height: 1px;
+    width: 75%;
+    background-color: var(--color04);
+}

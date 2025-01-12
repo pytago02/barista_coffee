@@ -7,9 +7,11 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { MenuComponent } from './admin/menu/menu.component';
 import { StatisticalComponent } from './admin/statistical/statistical.component';
 import { HomeMenuComponent } from './home-menu/home-menu.component';
+import { HomeShopComponent } from './home-shop/home-shop.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: 'admin',
     component: AdminComponent,
@@ -21,6 +23,7 @@ const routes: Routes = [
   },
   { path: 'home', component: HomeComponent },
   { path: 'home-menu', component: HomeMenuComponent },
+  { path: 'home-shop', component: HomeShopComponent },
 ];
 
 @NgModule({

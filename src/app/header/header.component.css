@@ -14,7 +14,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
     z-index: 1000;
     background-color: transparent;
     background-color: #171516;
@@ -66,19 +66,26 @@
 
 .navbar.scrolled ul li a {
     color: #171516;
-    transition: color 0.3s ease;
+    transition: all 1s ease;
 }
 
-.navL-links li:hover a {
-    color: var(--header-text-color-hover);
+.navbar .navL-links li a {
+    transition: all 1s ease;
+}
+
+
+.navbar .navL-links li:hover a {
+    /* color: var(--header-text-color-hover); */
     background-color: var(--header-background-hover);
+    color: #c7a17a;
     border-radius: 10px;
-    transition: all 0.5s ease;
+    transition: color 0.3s ease;
 }
 
 .navbar.scrolled .navL-links li:hover a {
     background-color: #c7a17a;
-    transition: all 0.5s ease;
+    color: #171516;
+    transition: color 0.5s ease;
 }
 
 /* .navbar ul li i {
