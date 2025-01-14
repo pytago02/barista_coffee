@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UploadFileService } from '../../sevices/upload-file.service';
 import { response } from 'express';
 import { Console, error, log } from 'console';
@@ -12,6 +12,7 @@ import { TablesService } from '../../sevices/tables.service';
 import { MenuService } from '../../sevices/menu.service';
 import { OrdersService } from '../../sevices/orders.service';
 import { PaymentService } from '../../sevices/payment.service';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,7 @@ import { PaymentService } from '../../sevices/payment.service';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit  {
   public tables: any[] = [];
   public tablesFloor2: any[] = [];
   public tablesFloor3: any[] = [];
@@ -156,12 +157,12 @@ export class DashboardComponent implements OnInit {
   }
 
   public addItem(): void {
-    if (this.file && this.newItem) {
+    if (this.newItem) {
       const formData = new FormData();
       formData.append('name', this.newItem.name);
       formData.append('floor', this.newItem.floor.toString());
       formData.append('status', this.newItem.status);
-      formData.append('file', this.file);
+      // formData.append('file', this.file);
 
       console.log('FormData gửi đi:', formData);
 
@@ -267,7 +268,7 @@ export class DashboardComponent implements OnInit {
   public viewTable(item: any): void {
     this.viewTableData = { ...item };
     this.loadOder();
-    // console.log(this.viewTableData);
+    console.log("viewTableData: ",this.viewTableData);
   }
 
   // phân trang
@@ -359,7 +360,7 @@ export class DashboardComponent implements OnInit {
       .getOder(this.viewTableData.table_id)
       .subscribe((data) => {
         this.orderData = data;
-        console.log('viewTableData', this.orderData);
+        console.log('orderData: ', this.orderData);
       });
   }
 
@@ -383,9 +384,9 @@ export class DashboardComponent implements OnInit {
     if(confirm("xác nhận thanh toán")){
       this.paymentData.payment_method = this.payment_method;
       this.paymentData.amount_paid = this.amount_paid;
-      // console.log('isPayment:', this.paymentData);
+      this.itemOderSelected = null;
       const paymentRequest = { ...this.paymentData };
-      // console.log('Payment Request:', paymentRequest);
+
   
       this.paymentService.payment(this.paymentData).subscribe({
         next: (response) => {
@@ -423,4 +424,52 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  // Update status order
+  public updateStatusOrderData :any = {};
+  public updateStatusOrder():void{
+    this.updateStatusOrderData.order_id = this.orderData[0].order_id;
+    this.updateStatusOrderData.table_id = this.orderData[0].table_id;
+    this.paymentService.updateStatusOrder(this.updateStatusOrderData).subscribe({
+      next:(response)=>{
+        this.loadOder();
+        this.loadMenu();
+        this.loadTables();
+        console.log("Update status order success", response);
+      },
+      error:(error:HttpErrorResponse)=>{
+        console.error("Update status order ERROR: ", error);
+      }
+    })
+  }
+
+  // QRCode
+  // public myAngularxQrCode:any = this.viewTableData.table_id | '';
+  ngAfterViewInit(): void {
+    // if (!this.qrCodeElementRef) {
+    //   console.error('QR Code element is not available');
+    // }
+    
+  }
+
+  public baseUrlQrCode = 'http://localhost:4200/qr-menu';
+  public qrData = this.baseUrlQrCode + '?table_id'
+  
+
+  @ViewChild('qrCodeElement') qrCodeElement!: ElementRef;
+
+  // Hàm tải xuống QR code
+  downloadQRCode(): void {
+    const canvas = this.qrCodeElement.nativeElement.querySelector('canvas');
+    if (canvas) {
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'qr_codeTable_'+this.viewTableData.name+'.png';
+      link.click();
+    } else {
+      console.error('Không tìm thấy canvas chứa QR code');
+    }
+  }
+  
 }

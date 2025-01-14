@@ -1,0 +1,4 @@
+  ➜  Local:   http://localhost:4200/
+  ➜  Network: http://192.168.47.1:4200/
+  ➜  Network: http://192.168.17.1:4200/
+  ➜  Network: http://172.172.10.132:4200/

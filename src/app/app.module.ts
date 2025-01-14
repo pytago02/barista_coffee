@@ -26,6 +26,9 @@ import { StatisticalComponent } from './admin/statistical/statistical.component'
 import { HomeMenuComponent } from './home-menu/home-menu.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeShopComponent } from './home-shop/home-shop.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { QRCodeComponent } from 'angularx-qrcode';
+import { QrMenuComponent } from './qr-menu/qr-menu.component';
 
 // Định nghĩa các route trong ứng dụng
 const routes: Routes = [
@@ -51,6 +54,7 @@ const routes: Routes = [
     StatisticalComponent,
     HomeMenuComponent,
     HomeShopComponent,
+    QrMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,12 +66,15 @@ const routes: Routes = [
     ReactiveFormsModule,
     BaseChartDirective,
     MatSliderModule,
+    QRCodeComponent,
   ],
   providers: [
     // provideClientHydration(withEventReplay()),
     // HttpClient
     provideCharts(withDefaultRegisterables()),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },  // Cung cấp JWT_OPTIONS
+    JwtHelperService  // Cung cấp JwtHelperService
   ],
   bootstrap: [AppComponent]
 })

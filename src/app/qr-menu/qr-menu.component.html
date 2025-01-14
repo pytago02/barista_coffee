@@ -1,0 +1,197 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<div class="main">
+    <div class="navbar" id="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="/assets/images/logo-1.png" alt="">
+            </div>
+
+            <ul class="navL-links">
+                <input type="text" placeholder="key word" [(ngModel)]="inputSearch">
+                <li><i class="fas fa-search" id="btn-search" (click)="loadMenu()"></i></li>
+                <li><i class="fas fa-bars" id="btn-menu" (click)="showOrderMenu()"></i></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="menus">
+        <div class="drinksMenu menu">
+            <div class="menu-title">
+                <h2>menu barista drinks</h2>
+                <div class="line"></div>
+            </div>
+
+            <ul class="menu-items">
+                <li class="menu-item" *ngFor="let item of loadMenuDataDrinks | slice:0:loadMenuDataDrinksLength">
+                    <div class="item" (click)="selectedItem(item)">
+                        <img [src]="baseUrl + item.img" alt="" class="img-item">
+                        <div class="content">
+                            <div class="title">
+                                <h3>{{item.name}}</h3>
+                                <h5>{{item.description}}</h5>
+                            </div>
+
+                        </div>
+                        <div class="price">
+                            <span>{{item.price | currency}}</span>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="AppetizerMenu menu">
+            <div class="menu-title">
+                <h2>menu barista Appetizer</h2>
+                <div class="line"></div>
+            </div>
+
+            <ul class="menu-items">
+                <li class="menu-item" *ngFor="let item of loadMenuDataAppetizer | slice:0:loadMenuDataAppetizerLength">
+                    <div class="item" (click)="selectedItem(item)">
+                        <img [src]="baseUrl + item.img" alt="" class="img-item">
+                        <div class="content">
+                            <div class="title">
+                                <h3>{{item.name}}</h3>
+                                <h5>{{item.description}}</h5>
+                            </div>
+
+                        </div>
+                        <div class="price">
+                            <span>{{item.price | currency}}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="FoodsMenu menu">
+            <div class="menu-title">
+                <h2>menu barista Foods</h2>
+                <div class="line"></div>
+            </div>
+
+            <ul class="menu-items">
+                <li class="menu-item" *ngFor="let item of loadMenuDataFoods | slice:0:loadMenuDataFoodsLength">
+                    <div class="item" (click)="selectedItem(item)">
+                        <img [src]="baseUrl + item.img" alt="" class="img-item">
+                        <div class="content">
+                            <div class="title">
+                                <h3>{{item.name}}</h3>
+                                <h5>{{item.description}}</h5>
+                            </div>
+
+                        </div>
+                        <div class="price">
+                            <span>{{item.price | currency}}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="ShopsMenu menu">
+            <div class="menu-title">
+                <h2>menu barista Shops</h2>
+                <div class="line"></div>
+            </div>
+
+            <ul class="menu-items">
+                <li class="menu-item" *ngFor="let item of loadMenuDataShops | slice:0:loadMenuDataShopsLength">
+                    <div class="item" (click)="selectedItem(item)">
+                        <img [src]="baseUrl + item.img" alt="" class="img-item">
+                        <div class="content">
+                            <div class="title">
+                                <h3>{{item.name}}</h3>
+                                <h5>{{item.description}}</h5>
+                            </div>
+
+                        </div>
+                        <div class="price">
+                            <span>{{item.price | currency}}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="overlay" *ngIf="isSelect || isShowOrderMenu">
+        <div class="overlayCcontent" (click)="exitSelectOrder()"></div>
+    </div>
+    <div class="order" *ngIf="isSelect">
+        <form (ngSubmit)="orderSubmit()">
+            <li class="menu-item">
+                <div class="item">
+                    <img [src]="baseUrl + selectedItemData.img" alt="" class="img-item">
+                    <div class="content">
+                        <div class="title">
+                            <h3>{{selectedItemData.name}}</h3>
+                            <h5>{{selectedItemData.description}}</h5>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <span>{{selectedItemData.price | currency}}</span>
+                    </div>
+                </div>
+            </li>
+
+            <div class="inputOrder">
+                <div class="quantity">
+                    <label for="quantity">
+                        <h4>số lượng:</h4>
+                    </label>
+                    <input type="number" name="quantity" [(ngModel)]="soluongOder" (change)="total()" min="1" />
+                    <i class="fa-solid fa-plus" (click)="plusSoLuongOrder()"></i>
+                    <i class="fa-solid fa-minus" (click)="minusSoLuongOrder()"></i>
+                </div>
+
+                <div class="total">
+                    <label for="total">
+                        <h4>tổng tiền:</h4>
+                    </label>
+                    <h4>{{ totalItemOder | currency }}</h4>
+                </div>
+
+                <button type="submit">ADD ORDER</button>
+            </div>
+
+
+        </form>
+    </div>
+
+    <div class="orderData" *ngIf="isShowOrderMenu">
+        <div class="exit" >
+            <i class="fa-solid fa-circle-xmark" (click)="hintOrderMenu()"></i>
+        </div>
+        <h3>orderData</h3>
+        <ul>
+            <li *ngFor="let item of orderData">
+                <div class="item">
+                    <img [src]="baseUrl + item.img" alt="" class="img-item">
+
+                    <div class="content">
+                        <h3>{{item.name}}</h3>
+                        <div class="price">
+                            <span>{{item.price | currency}}</span>
+                            <span>số lượng: {{item.quantity}}</span>
+                        </div>
+                    </div>
+                    <div class="editQuantity">
+                        <i class="fa-solid fa-plus" (click)="plusorderDataQuantity(item)"></i>
+                        <i class="fa-solid fa-minus" (click)="minusorderDataQuantity(item)"></i>
+                    </div>
+                    <h4>Thành tiền: {{item.totalItemOder | currency}}</h4>
+                    <i class="fa-solid fa-trash" (click)="deleteOrderItem(item)"></i>
+                </div>
+            </li>
+        </ul>
+
+        <button (click)="orderConfirm()">ORDER</button>
+    </div>
+</div>

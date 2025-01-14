@@ -13,4 +13,9 @@ export class PaymentService {
     const apiURL = 'http://localhost/angular-api/payment.php';
     return this.http.post<any>(apiURL, item);
   }
+
+  public updateStatusOrder(item: any): Observable<any> {
+    const url = `http://localhost/angular-api/updateOrder.php`;
+    return this.http.put<any>(url, item);
+  }
 }

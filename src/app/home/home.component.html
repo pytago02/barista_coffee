@@ -10,7 +10,7 @@
             <br>
             <span class="empty-space"></span>
             <div id="title">
-                <h2>Preview Barista Coffee.</h2>
+                <h2>Preview Barista Coffee</h2>
             </div>
             <span class="empty-space"></span>
             <br>
@@ -86,7 +86,7 @@
             <br>
             <span class="empty-space"></span>
             <div id="title">
-                <h2>Favourite Coffee flavours.</h2>
+                <h2>Favourite Coffee flavours</h2>
             </div>
             <span class="empty-space"></span>
             <br>
@@ -145,7 +145,7 @@
             </div>
         </div>
 
-        <a class="btn-view-menu btn-view" routerLink="menu">view menu</a>
+        <a class="btn-view-menu btn-view" routerLink="home-menu">view menu</a>
     </div>
 
     <div class="container-shop">
@@ -154,7 +154,7 @@
             <br>
             <span class="empty-space"></span>
             <div id="title">
-                <h2 style="color: #2f2d2b;">barista coffee shop.</h2>
+                <h2 style="color: #2f2d2b;">barista coffee shop</h2>
             </div>
             <span class="empty-space"></span>
             <br>
@@ -162,7 +162,7 @@
         </div>
 
         <div class="shop">
-            <div class="shop-item" *ngFor="let item of getMenuShopData  | slice:0:5">
+            <div class="shop-item" *ngFor="let item of getMenuShopData  | slice:0:4">
                 <img [src]="baseUrl + item.img" alt="">
                 <a routerLink="shop">
                     <h3>{{item.name}}</h3>
@@ -192,7 +192,7 @@
             <br>
             <span class="empty-space"></span>
             <div id="title">
-                <h2>Latest Blog Posts.</h2>
+                <h2></h2>
             </div>
             <span class="empty-space"></span>
             <br>

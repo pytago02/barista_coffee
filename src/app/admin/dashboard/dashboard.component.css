@@ -365,14 +365,14 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-.edit-form .btn-cancel-edit,
-.btn-cancel-edit {
+.edit-form .btn-cancel-exit,
+.btn-cancel-exit {
     background-color: #dc3545;
     color: white;
 }
 
-.edit-form .btn-cancel-edit:hover,
-.btn-cancel-edit:hover {
+.edit-form .btn-cancel-exit:hover,
+.btn-cancel-exit:hover {
     background-color: #c82333;
 }
 
@@ -644,12 +644,20 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-.viewTable .infoTable .btn-cancel-edit {
+.viewTable .infoTable .btn{
+    display: flex;
+    width: 95%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.viewTable .infoTable .btn-cancel-exit {
+    margin-left: auto;
     background-color: #dc3545;
     color: white;
 }
 
-.viewTable .infoTable .btn-cancel-edit:hover {
+.viewTable .infoTable .btn-cancel-exit:hover {
     background-color: #c82333;
 }
 
@@ -833,6 +841,11 @@ button[type="submit"]:hover {
     background-color: #c24d59;
 }
 
+.button-view-table.status-order {
+    background-color: #57af8a;
+}
+
+
 /* Hiệu ứng hover cho tất cả trạng thái */
 .button-view-table:hover {
     opacity: 0.9;
@@ -870,3 +883,33 @@ button[type="submit"]:hover {
     width: 75%;
     background-color: var(--color04);
 }
+
+
+/* QR CODE */
+.qrCode{
+    margin-top: 24px;
+    
+}
+
+.qrCode .downloadQrcode{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.qrCode .downloadQrcode:hover{
+   color: #c7a17a;
+   transition: color 0.3s ease;
+}
+
+.qrCode .downloadQrcode i{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+
+
+

@@ -1,3 +1,5 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 <div class="main">
 
     <!-- NodeJS, express, knexjs, multer -->
@@ -83,10 +85,10 @@
                         <option [value]="3">Tầng 3</option>
                     </select>
                 </label>
-                <label>
+                <!-- <label>
                     ảnh:
                     <input type="file" (change)="onChangeImage($event)" required>
-                </label>
+                </label> -->
                 <div class="btn">
                     <button type="submit">thêm</button>
                     <button type="button" class="btn-cancel-add" (click)="hideAddForm()">huỷ</button>
@@ -122,12 +124,12 @@
 
                 <div class="btn">
                     <div class="">
-                        <button class="btnDeleteTables" type="button" (click)="deleteTables()" >Xoá bàn</button>
+                        <button class="btnDeleteTables" type="button" (click)="deleteTables()">Xoá bàn</button>
                     </div>
 
                     <div class="btnEditTables">
                         <button type="submit">Lưu</button>
-                        <button type="button" (click)="editItemData = null" class="btn-cancel-edit">huỷ</button>
+                        <button type="button" (click)="editItemData = null" class="btn-cancel-exit">huỷ</button>
                     </div>
                 </div>
             </form>
@@ -217,9 +219,26 @@
                 <div class="btn">
                     <button type="submit" (click)="payment()">thanh toán</button>
                     <button (click)="openTable()">mở bàn</button>
-                    <button type="button" (click)="viewTableData = null" class="btn-cancel-edit">thoát</button>
+                    <button (click)="updateStatusOrder()">phục vụ</button>
+                    <button type="button" (click)="viewTableData = null" class="btn-cancel-exit">thoát</button>
                 </div>
             </div>
+
+            <div class="qrCode" #qrCodeElement>
+                <h3>QR Code</h3>
+                <qrcode [elementType]="'canvas'" [colorDark]="'#000'" [colorLight]="'#ffffff'"
+                    [qrdata]="qrData+viewTableData.table_id" [width]="256" [errorCorrectionLevel]="'M'">
+                </qrcode>
+
+                <div class="downloadQrcode" (click)="downloadQRCode()">
+                    <i class="fa-solid fa-download"></i>
+                    <p>download qrcode</p>
+                </div>
+            </div>
+
+
+
+
 
         </div>
         <!-- view table END -->
@@ -247,7 +266,7 @@
                 </div>
                 <div class="amount_paid">
                     <label for="amount_paid">tiền khách đưa</label>
-                    <input type="number" name="amount_paid" [(ngModel)]="amount_paid" (change)="amountPaid()">
+                    <input type="number" name="amount_paid" [(ngModel)]="amount_paid" (keyup)="amountPaid()">
                 </div>
                 <div class="cashBack">
                     <label for="cashBack">tiền trả lại</label>
@@ -256,7 +275,7 @@
 
                 <div class="btn">
                     <button type="submit" name="isPayment">Thanh toán</button>
-                    <button type="button" (click)="paymentData = null" class="btn-cancel-edit">thoát</button>
+                    <button type="button" (click)="paymentData = null" class="btn-cancel-exit">thoát</button>
                 </div>
             </form>
         </div>
@@ -270,12 +289,13 @@
                     'status-empty': item.status === '0',
                     'status-serving': item.status === '1',
                     'status-repair': item.status === '2',
-                    'status-unknown': item.status !== '0' && item.status !== '1' && item.status !== '2'
+                    'status-order': item.status === '3',
+                    'status-unknown': item.status !== '0' && item.status !== '1' && item.status !== '2' && item.status !== '3'
                 }">
                     <span>Tầng: {{item.floor}}</span>
                     <h3>{{item.name}}</h3>
-                    <h4>{{ item.status === '0' ? 'Đang trống' : (item.status === '1' ? 'Đang phục vụ' :(item.status ===
-                        '2' ? 'Sửa chữa' : 'Không xác định')) }}</h4>
+                    <h4>{{ item.status === '0' ? 'Đang trống' : (item.status === '1' ? 'Đang phục vụ' :(item.status ==='2' ? 'Sửa chữa' : (item.status ==='3' ? 'Yêu cầu' : 'Unknown'))) }}
+                    </h4>
                 </button>
             </div>
 
@@ -289,15 +309,16 @@
             <div class="table" *ngFor="let item of tablesFloor2">
                 <button (click)="viewTable(item)" (contextmenu)="editItem(item); onContextMenu($event)"
                     class="button-view-table" [ngClass]="{
-                    'status-empty': item.status === '0',
+                   'status-empty': item.status === '0',
                     'status-serving': item.status === '1',
                     'status-repair': item.status === '2',
-                    'status-unknown': item.status !== '0' && item.status !== '1' && item.status !== '2'
+                    'status-order': item.status === '3',
+                    'status-unknown': item.status !== '0' && item.status !== '1' && item.status !== '2' && item.status !== '3'
                 }">
                     <span>Tầng: {{item.floor}}</span>
                     <h3>{{item.name}}</h3>
-                    <h4>{{ item.status === '0' ? 'Đang trống' : (item.status === '1' ? 'Đang phục vụ' :(item.status ===
-                        '2' ? 'Sửa chữa' : 'Không xác định')) }}</h4>
+                    <h4>{{ item.status === '0' ? 'Đang trống' : (item.status === '1' ? 'Đang phục vụ' :(item.status ==='2' ? 'Sửa chữa' : (item.status ==='3' ? 'Yêu cầu' : 'Unknown'))) }}
+                    </h4>
                 </button>
             </div>
 
@@ -314,12 +335,13 @@
                     'status-empty': item.status === '0',
                     'status-serving': item.status === '1',
                     'status-repair': item.status === '2',
-                    'status-unknown': item.status !== '0' && item.status !== '1' && item.status !== '2'
+                    'status-order': item.status === '3',
+                    'status-unknown': item.status !== '0' && item.status !== '1' && item.status !== '2' && item.status !== '3'
                 }">
                     <span>Tầng: {{item.floor}}</span>
                     <h3>{{item.name}}</h3>
-                    <h4>{{ item.status === '0' ? 'Đang trống' : (item.status === '1' ? 'Đang phục vụ' :(item.status ===
-                        '2' ? 'Sửa chữa' : 'Không xác định')) }}</h4>
+                    <h4>{{ item.status === '0' ? 'Đang trống' : (item.status === '1' ? 'Đang phục vụ' :(item.status ==='2' ? 'Sửa chữa' : (item.status ==='3' ? 'Yêu cầu' : 'Unknown'))) }}
+                    </h4>
                 </button>
             </div>
 

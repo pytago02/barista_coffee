@@ -6,7 +6,7 @@
             <div class="logo">
                 <img [src]="logoUrl" alt="logo">
             </div>
-            
+
             <ul class="navL-links">
                 <li><a routerLink="/home">home</a></li>
                 <li><a routerLink="/home-menu">menu</a></li>
@@ -17,10 +17,10 @@
                 <li><a href="#blogs">blogs</a></li>
                 <li style="color:white;">|</li>
 
-                <li><a href=""><i class="fas fa-search" id="btn-search" ></i></a></li>
-                <li><a href=""><i class="fas fa-shopping-cart" id="btn-shopping-cart" ></i></a>
-                </li>
-                <li><a href=""><i class="fas fa-bars" id="btn-menu" ></i></a></li>
+                <li><a href=""><i class="fas fa-search" id="btn-search"></i></a></li>
+                <li><a href=""><i class="fas fa-shopping-cart" id="btn-shopping-cart"></i></a></li>
+                <li><a href=""><i class="fas fa-bars" id="btn-menu"></i></a></li>
+                <li (click)="onLogout()"><a href=""><i class="fa-solid fa-right-from-bracket"></i></a></li>
             </ul>
 
         </div>
